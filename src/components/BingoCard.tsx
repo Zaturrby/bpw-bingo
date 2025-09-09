@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import wordLidImage from "../images/583593e2-659c-713e-3712-9947442f1601.png";
 
 interface BingoSquare {
@@ -171,8 +171,11 @@ const bingoSquares: BingoSquare[] = [
 ];
 
 export function BingoCard() {
+  const [isMobile, setIsMobile] = useState<boolean>(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
   const [checkedSquares, setCheckedSquares] = useState<Set<number>>(
-    new Set([25])
+    () => new Set(isMobile ? [] : [25])
   );
 
   const toggleSquare = (id: number) => {
@@ -187,16 +190,13 @@ export function BingoCard() {
     setCheckedSquares(newChecked);
   };
 
-  const arrangeSquares = () => {
+  const arrangeSquares = (mobile: boolean) => {
     const nonFreeSquares = bingoSquares.filter(
       (square) => square.category !== "free"
     );
     const shuffled = [...nonFreeSquares].sort(() => Math.random() - 0.5);
-
-    // Check if mobile (window width < 768px)
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
     
-    if (isMobile) {
+    if (mobile) {
       // Mobile: return 24 squares (no free square)
       return shuffled.slice(0, 24);
     } else {
@@ -217,7 +217,31 @@ export function BingoCard() {
     }
   };
 
-  const [gridSquares] = useState<BingoSquare[]>(() => arrangeSquares());
+  const [gridSquares, setGridSquares] = useState<BingoSquare[]>(() => arrangeSquares(isMobile));
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768;
+      if (newIsMobile !== isMobile) {
+        setIsMobile(newIsMobile);
+        setGridSquares(arrangeSquares(newIsMobile));
+        
+        // Update checked squares: remove free square if switching to mobile, add it if switching to desktop
+        setCheckedSquares(prev => {
+          const newChecked = new Set(prev);
+          if (newIsMobile && newChecked.has(25)) {
+            newChecked.delete(25);
+          } else if (!newIsMobile && !newChecked.has(25)) {
+            newChecked.add(25);
+          }
+          return newChecked;
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
   const getButtonClasses = (square: BingoSquare) => {
     const baseClasses =
@@ -237,7 +261,7 @@ export function BingoCard() {
     const baseClasses =
       square.category === "free"
         ? "text-xs md:text-xs leading-tight h-full flex flex-col items-center justify-center text-center font-bold"
-        : "text-xs md:text-xs leading-tight h-full flex items-start justify-start text-left font-bold hyphens-auto break-words overflow-hidden p-1";
+        : "text-xs md:text-xs leading-tight h-full flex items-start justify-start text-left font-bold hyphens-auto break-words overflow-hidden p-1 [word-break:break-word] [hyphens:auto]";
     const colorClasses =
       square.category === "free" ? "text-purple-900" : "text-gray-800";
     return `${baseClasses} ${colorClasses}`;
@@ -343,7 +367,7 @@ export function BingoCard() {
               </div>
               <div className="text-center border-t-4 border-black pt-2">
                 <p className="text-sm font-black text-purple-800">
-                  Totaal: {checkedSquares.size} / 25
+                  Totaal: {isMobile ? checkedSquares.size : (checkedSquares.has(25) ? checkedSquares.size - 1 : checkedSquares.size)} / 24
                 </p>
               </div>
             </div>
