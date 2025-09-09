@@ -351,18 +351,25 @@ export function BingoCard() {
 
             <div className="text-center md:text-left mt-6">
               <p className="text-black font-bold text-base md:text-lg">
-                Scoor je 0 of meer punten? Wordt dan lid van de bond →
+                Scoor je 0 of meer punten? Wordt dan lid van de bond <span className="inline md:hidden">↓</span><span className="hidden md:inline">→</span>
               </p>
             </div>
           </div>
 
           <div className="w-full md:flex-1 flex items-center justify-center p-2">
             <div className="w-48 h-48 md:w-[80%] md:h-[80%]">
-              <img
-                src={wordLidImage}
-                alt="Word Lid van BPW"
-                className="w-full h-full object-contain"
-              />
+              <a 
+                href="https://bondprecairewoonvormen.nl/en/lidworden/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block w-full h-full hover:opacity-80 transition-opacity"
+              >
+                <img
+                  src={wordLidImage}
+                  alt="Word Lid van BPW - Click to join"
+                  className="w-full h-full object-contain cursor-pointer"
+                />
+              </a>
             </div>
           </div>
         </div>
