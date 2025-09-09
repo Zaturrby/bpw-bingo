@@ -374,7 +374,7 @@ export function BingoCard() {
 
             <div className="text-center md:text-left mt-6">
               <p className="text-black font-bold text-base md:text-lg">
-                Scoor je 0 of meer punten? Wordt dan lid van de bond <span className="inline md:hidden">↓</span><span className="hidden md:inline">→</span>
+                Scoor je 0 of meer punten? Word dan lid van de bond <span className="inline md:hidden">↓</span><span className="hidden md:inline">→</span>
               </p>
             </div>
           </div>
