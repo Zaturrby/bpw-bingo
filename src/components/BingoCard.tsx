@@ -221,7 +221,7 @@ export function BingoCard() {
 
   const getButtonClasses = (square: BingoSquare) => {
     const baseClasses =
-      "relative border-2 border-black p-1.5 transition-all duration-200 aspect-square";
+      "relative border-2 border-black p-1.5 transition-all duration-200 aspect-square -ml-px -mt-px";
     const colorClasses = square.color;
     const hoverClasses =
       square.category !== "free" ? "hover:brightness-95" : "";
@@ -259,11 +259,10 @@ export function BingoCard() {
 
   return (
     <div
-      className="w-full max-w-lg mx-auto md:max-w-none"
-      style={{ aspectRatio: "148/210" }}
+      className="w-full max-w-lg mx-auto md:max-w-4xl"
     >
-      <div className="h-full flex flex-col p-1 md:p-2">
-        <div className="flex-1 grid grid-cols-3 md:grid-cols-5 border-2 md:border-4 border-black gap-0">
+      <div className="flex flex-col p-1 md:p-2">
+        <div className="grid grid-cols-3 md:grid-cols-5 border-2 md:border-4 border-black">
           {gridSquares.map((square, index) => (
             <button
               key={`${square.id}-${index}`}
@@ -357,7 +356,7 @@ export function BingoCard() {
           </div>
 
           <div className="w-full md:flex-1 flex items-center justify-center p-2">
-            <div className="w-48 h-48 md:w-[80%] md:h-[80%]">
+            <div className="w-44 h-44 md:w-[70%] md:h-[70%]">
               <a 
                 href="https://bondprecairewoonvormen.nl/en/lidworden/" 
                 target="_blank" 
