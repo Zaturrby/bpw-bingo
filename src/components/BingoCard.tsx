@@ -193,19 +193,28 @@ export function BingoCard() {
     );
     const shuffled = [...nonFreeSquares].sort(() => Math.random() - 0.5);
 
-    const grid: BingoSquare[] = [];
-    let shuffledIndex = 0;
+    // Check if mobile (window width < 768px)
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    
+    if (isMobile) {
+      // Mobile: return 24 squares (no free square)
+      return shuffled.slice(0, 24);
+    } else {
+      // Desktop: return 25 squares with free square in center
+      const grid: BingoSquare[] = [];
+      let shuffledIndex = 0;
 
-    for (let i = 0; i < 25; i++) {
-      if (i === 12) {
-        grid.push(bingoSquares.find((s) => s.category === "free")!);
-      } else {
-        grid.push(shuffled[shuffledIndex]);
-        shuffledIndex++;
+      for (let i = 0; i < 25; i++) {
+        if (i === 12) {
+          grid.push(bingoSquares.find((s) => s.category === "free")!);
+        } else {
+          grid.push(shuffled[shuffledIndex]);
+          shuffledIndex++;
+        }
       }
-    }
 
-    return grid;
+      return grid;
+    }
   };
 
   const [gridSquares] = useState<BingoSquare[]>(() => arrangeSquares());
@@ -228,7 +237,7 @@ export function BingoCard() {
     const baseClasses =
       square.category === "free"
         ? "text-xs md:text-xs leading-tight h-full flex flex-col items-center justify-center text-center font-bold"
-        : "text-[10px] md:text-xs leading-tight h-full flex items-start justify-start text-left font-bold hyphens-auto break-words overflow-hidden p-1";
+        : "text-xs md:text-xs leading-tight h-full flex items-start justify-start text-left font-bold hyphens-auto break-words overflow-hidden p-1";
     const colorClasses =
       square.category === "free" ? "text-purple-900" : "text-gray-800";
     return `${baseClasses} ${colorClasses}`;
@@ -254,7 +263,7 @@ export function BingoCard() {
       style={{ aspectRatio: "148/210" }}
     >
       <div className="h-full flex flex-col p-1 md:p-2">
-        <div className="flex-1 grid grid-cols-5 border-2 md:border-4 border-black gap-0">
+        <div className="flex-1 grid grid-cols-3 md:grid-cols-5 border-2 md:border-4 border-black gap-0">
           {gridSquares.map((square, index) => (
             <button
               key={`${square.id}-${index}`}
