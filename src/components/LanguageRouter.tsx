@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import App from '../App';
 import { Print } from './Print';
+import { ContactFormPrint } from './ContactFormPrint';
 
 function LanguageWrapper({ children }: { children?: React.ReactNode }) {
   const { lang } = useParams<{ lang: string }>();
@@ -35,6 +36,8 @@ export function LanguageRouter() {
         <Route path="/:lang" element={<LanguageWrapper />} />
         <Route path="/:lang/print" element={<LanguageWrapper><Print /></LanguageWrapper>} />
         <Route path="/:lang/print/colorless" element={<LanguageWrapper><Print colorless={true} /></LanguageWrapper>} />
+        <Route path="/:lang/contact/print" element={<LanguageWrapper><ContactFormPrint /></LanguageWrapper>} />
+        <Route path="/:lang/contact/print/colorless" element={<LanguageWrapper><ContactFormPrint colorless={true} /></LanguageWrapper>} />
         <Route path="/" element={<Navigate to="/nl" replace />} />
         <Route path="*" element={<Navigate to="/nl" replace />} />
       </Routes>

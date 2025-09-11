@@ -1,13 +1,20 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 export function LanguageSwitcher() {
   const navigate = useNavigate();
   const { lang } = useParams<{ lang: string }>();
+  const location = useLocation();
 
   const toggleLanguage = () => {
     const currentLang = lang || 'nl';
     const newLanguage = currentLang === 'nl' ? 'en' : 'nl';
-    navigate(`/${newLanguage}`, { replace: true });
+    
+    // Replace the language in the current path
+    const currentPath = location.pathname;
+    const pathWithoutLang = currentPath.replace(`/${currentLang}`, '');
+    const newPath = `/${newLanguage}${pathWithoutLang}`;
+    
+    navigate(newPath, { replace: true });
   };
 
   const currentLang = lang || 'nl';

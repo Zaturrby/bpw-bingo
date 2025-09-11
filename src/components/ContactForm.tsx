@@ -5,9 +5,11 @@ import { bingoSquares } from "../data/bingoData";
 interface ContactFormProps {
   checkedSquares: Set<number>;
   isMobile: boolean;
+  printMode?: boolean;
+  colorless?: boolean;
 }
 
-export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
+export function ContactForm({ checkedSquares, isMobile, printMode = false, colorless = false }: ContactFormProps) {
   const { t } = useTranslation();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -97,9 +99,9 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
   };
 
   return (
-    <div className="mt-8 mb-20 bg-purple-50 border-4 border-black p-4 md:p-6">
+    <div className={`mt-8 mb-20 ${colorless ? 'bg-white' : 'bg-purple-50'} border-4 border-black p-4 md:p-6`}>
       <div className="max-w-lg md:max-w-2xl mx-auto">
-        <h2 className="text-lg md:text-xl font-black text-purple-900 mb-4 text-left">
+        <h2 className={`text-lg md:text-xl font-black ${colorless ? 'text-black' : 'text-purple-900'} mb-4 text-left`}>
           {t("contact.title")}
         </h2>
 
@@ -107,7 +109,7 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
           <div>
             <label
               htmlFor="name"
-              className="block text-sm font-bold text-purple-900 mb-2"
+              className={`block text-sm font-bold ${colorless ? 'text-black' : 'text-purple-900'} mb-2`}
             >
               {t("contact.nameLabel")}
             </label>
@@ -117,14 +119,14 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full p-3 border-2 border-black bg-white text-black font-medium"
-              placeholder={t("contact.namePlaceholder")}
+              placeholder={printMode ? "" : t("contact.namePlaceholder")}
             />
           </div>
 
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-bold text-purple-900 mb-2"
+              className={`block text-sm font-bold ${colorless ? 'text-black' : 'text-purple-900'} mb-2`}
             >
               {t("contact.emailLabel")}
             </label>
@@ -134,13 +136,13 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full p-3 border-2 border-black bg-white text-black font-medium"
-              placeholder={t("contact.emailPlaceholder")}
+              placeholder={printMode ? "" : t("contact.emailPlaceholder")}
             />
           </div>
 
-          {checkedSquares.size > 0 && (
+          {(checkedSquares.size > 0 || printMode) && (
             <div>
-              <label className="block text-sm font-bold text-purple-900 mb-3">
+              <label className={`block text-sm font-bold ${colorless ? 'text-black' : 'text-purple-900'} mb-3`}>
                 {t("contact.myConcerns")}
               </label>
               <div className="grid grid-cols-2 gap-3">
@@ -151,22 +153,41 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
                   return (
                     <div key={category} className="flex items-center gap-2">
                       <div className="w-8 h-8 bg-white border-2 border-black flex items-center justify-center">
-                        <span className={`text-sm font-bold ${score > 0 ? 'text-black' : 'text-white'}`}>{score}</span>
+                        {!printMode && (
+                          <span className={`text-sm font-bold ${score > 0 ? 'text-black' : 'text-white'}`}>
+                            {score}
+                          </span>
+                        )}
                       </div>
-                      <span className={`text-sm text-purple-800 ${isHighest ? 'font-bold' : 'font-medium'}`}>
+                      <span className={`text-sm ${colorless ? 'text-black' : 'text-purple-800'} ${isHighest ? 'font-bold' : 'font-medium'}`}>
                         {t(`categories.${category}`)}
                       </span>
                     </div>
                   );
                 })}
               </div>
+              {(checkedSquares.size > 0 || printMode) && (
+                <div className={`mt-4 text-sm ${colorless ? 'text-black' : 'text-purple-800'}`}>
+                  <strong>
+                    {t("contact.totalScore")}: 
+                    {printMode ? (
+                      <>
+                        <span className="inline-block w-8 ml-2 mr-1"></span>
+                        /24
+                      </>
+                    ) : (
+                      ` ${totalScore}/24`
+                    )}
+                  </strong>
+                </div>
+              )}
             </div>
           )}
 
           <div>
             <label
               htmlFor="situation"
-              className="block text-sm font-bold text-purple-900 mb-2"
+              className={`block text-sm font-bold ${colorless ? 'text-black' : 'text-purple-900'} mb-2`}
             >
               {t("contact.situationLabel")}
             </label>
@@ -176,22 +197,26 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
               onChange={(e) => setSituation(e.target.value)}
               rows={4}
               className="w-full p-3 border-2 border-black bg-white text-black font-medium resize-none"
-              placeholder={t("contact.situationPlaceholder")}
+              placeholder={printMode ? "" : t("contact.situationPlaceholder")}
             />
           </div>
 
-          <button
-            onClick={handleSubmit}
-            disabled={!isValidEmail(email)}
-            className="w-full bg-purple-400 hover:bg-purple-500 disabled:bg-gray-300 disabled:cursor-not-allowed border-4 border-black p-3 font-black text-black uppercase tracking-wide transition-colors"
-          >
-            {t("contact.submitButton")}
-          </button>
+          {!printMode && (
+            <button
+              onClick={handleSubmit}
+              disabled={!isValidEmail(email)}
+              className="w-full bg-purple-400 hover:bg-purple-500 disabled:bg-gray-300 disabled:cursor-not-allowed border-4 border-black p-3 font-black text-black uppercase tracking-wide transition-colors"
+            >
+              {t("contact.submitButton")}
+            </button>
+          )}
         </div>
 
-        <p className="text-xs text-purple-700 mt-4 text-center">
-          {t("contact.disclaimer")}
-        </p>
+        {!printMode && (
+          <p className={`text-xs ${colorless ? 'text-black' : 'text-purple-700'} mt-4 text-center`}>
+            {t("contact.disclaimer")}
+          </p>
+        )}
       </div>
     </div>
   );

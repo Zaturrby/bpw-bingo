@@ -2,6 +2,8 @@ import { useTranslation } from "react-i18next";
 import { bingoSquares } from "../data/bingoData";
 import bpwLogo from "../images/400-400-max.jpg";
 import { Board } from "./Board";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ColorSwitcher } from "./ColorSwitcher";
 
 interface PrintProps {
   colorless?: boolean;
@@ -77,6 +79,8 @@ export function Print({ colorless = false }: PrintProps) {
           />
         </div>
       </div>
+      <LanguageSwitcher />
+      <ColorSwitcher />
     </div>
   );
 }

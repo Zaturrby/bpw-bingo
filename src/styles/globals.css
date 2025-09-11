@@ -113,4 +113,87 @@
     width: 7rem !important;
     height: 7rem !important;
   }
+  
+  .print-contact-form {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+  
+  .print-contact-form button {
+    display: none !important;
+  }
+  
+  /* Only apply black/white styling to colorless print mode */
+  .colorless-print.print-contact-form .bg-purple-50 {
+    background-color: white !important;
+  }
+  
+  .colorless-print.print-contact-form .text-purple-900,
+  .colorless-print.print-contact-form .text-purple-800,
+  .colorless-print.print-contact-form .text-purple-700 {
+    color: black !important;
+  }
+  
+  .colorless-print.print-contact-form .bg-purple-400 {
+    background-color: white !important;
+    border: 2px solid black !important;
+  }
+  
+  /* Colorless print overrides - use highest specificity */
+  .colorless-print .bg-purple-50,
+  .colorless-print .bg-purple-200,
+  .colorless-print .bg-purple-300,
+  .colorless-print .bg-purple-400,
+  .colorless-print .bg-purple-500,
+  .colorless-print .bg-purple-600,
+  .colorless-print .bg-purple-700,
+  .colorless-print .bg-violet-200,
+  .colorless-print .bg-fuchsia-200,
+  .colorless-print .bg-pink-200 {
+    background-color: white !important;
+  }
+  
+  .colorless-print .text-purple-900,
+  .colorless-print .text-purple-800,
+  .colorless-print .text-purple-700,
+  .colorless-print .text-purple-600,
+  .colorless-print .text-purple-500,
+  .colorless-print .border-purple-400 {
+    color: black !important;
+    border-color: black !important;
+  }
+  
+  /* Force all elements in colorless print to be black and white */
+  .colorless-print *,
+  .colorless-print *::before,
+  .colorless-print *::after {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  .colorless-print .border-2,
+  .colorless-print .border-4,
+  .colorless-print * {
+    border-color: black !important;
+  }
+  
+  /* Specific overrides for contact form elements */
+  .colorless-print input,
+  .colorless-print textarea,
+  .colorless-print label,
+  .colorless-print div,
+  .colorless-print span,
+  .colorless-print p,
+  .colorless-print h1,
+  .colorless-print h2,
+  .colorless-print h3 {
+    background-color: white !important;
+    color: black !important;
+  }
+  
+  /* Hide language switcher and color switcher when actually printing */
+  .fixed,
+  .print-hidden {
+    display: none !important;
+  }
 }
