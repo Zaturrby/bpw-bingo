@@ -36,15 +36,15 @@
   "questions": {
     "zekerheid": {
       "1": "Ik heb een tijdelijk huurcontract (alweer)",
-      "2": "Ik woon al maanden/jaren onzeker (er is geen vaste plek te vinden)",
+      "2": "Ik woon al erg lang onzeker",
       "3": "Ik vrees elk moment mijn woonplek te kunnen verliezen",
-      "4": "Ik moet over een paar dagen/weken/maanden verhuizen maar kan niets anders vinden",
+      "4": "Ik moet over binnenkort verhuizen maar kan niets anders vinden",
       "5": "Er is geen stabiele woonsituatie hier",
       "6": "Ik voel me niet thuis in mijn woning"
     },
     "betaalbaarheid": {
       "7": "Ik heb schuld(en) door o.a. te duur te moeten wonen",
-      "8": "Ik woon te duur (moet meer dan 40% inkomen aan huur besteden)",
+      "8": "Ik woon te veel te duur",
       "9": "Ik kan de huur soms niet betalen",
       "10": "Ik kan geen huurtoeslag aanvragen",
       "11": "Mijn huisbaas is onbereikbaar of doet niks",

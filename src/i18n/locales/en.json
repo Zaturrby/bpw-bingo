@@ -36,15 +36,15 @@
   "questions": {
     "zekerheid": {
       "1": "I have a temporary housing contract (again)",
-      "2": "I live in temporary places for months/years already (no solid place is available)",
+      "2": "I live in temporary places for a long time already",
       "3": "I fear being evicted anytime/soon",
-      "4": "I have to move in a few days/weeks/months but can't find anything else",
+      "4": "I have to move soon but can't find anything else",
       "5": "There is no stable living situation here",
       "6": "I am not at home in my house"
     },
     "betaalbaarheid": {
       "7": "I'm in debt(s) due to having to live too expensively",
-      "8": "My room is far too expensive (more than 40% of my income)",
+      "8": "My room is far too expensive",
       "9": "I sometimes can't pay my rent",
       "10": "I can't apply for housing allowance",
       "11": "My landlord can't be reached or doesn't respond",

@@ -34,6 +34,7 @@ export function LanguageRouter() {
       <Routes>
         <Route path="/:lang" element={<LanguageWrapper />} />
         <Route path="/:lang/print" element={<LanguageWrapper><Print /></LanguageWrapper>} />
+        <Route path="/:lang/print/colorless" element={<LanguageWrapper><Print colorless={true} /></LanguageWrapper>} />
         <Route path="/" element={<Navigate to="/nl" replace />} />
         <Route path="*" element={<Navigate to="/nl" replace />} />
       </Routes>

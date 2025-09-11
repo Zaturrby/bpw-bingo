@@ -1,8 +1,13 @@
 import { useTranslation } from "react-i18next";
-import { bingoSquares, categoryColors, BingoSquare } from "../data/bingoData";
+import { bingoSquares } from "../data/bingoData";
 import bpwLogo from "../images/400-400-max.jpg";
+import { Board } from "./Board";
 
-export function Print() {
+interface PrintProps {
+  colorless?: boolean;
+}
+
+export function Print({ colorless = false }: PrintProps) {
   const { t } = useTranslation();
 
   // Create a fixed layout for printing (5x5 grid always)
@@ -30,28 +35,15 @@ export function Print() {
 
   const gridSquares = arrangeSquares();
 
-  const getButtonClasses = (square: BingoSquare) => {
-    const baseClasses =
-      "relative border-2 border-black p-2 aspect-square -ml-px -mt-px print:border-black";
-    const colorClasses = categoryColors[square.category];
-    const categoryClasses =
-      square.category === "free" ? "font-black text-purple-800" : "";
-
-    return `${baseClasses} ${colorClasses} ${categoryClasses}`;
-  };
-
-  const getTextClasses = (square: BingoSquare) => {
-    const baseClasses =
-      square.category === "free"
-        ? "text-sm leading-tight h-full flex flex-col items-center justify-center text-center font-bold"
-        : "text-sm leading-tight h-full flex items-start justify-start text-left font-bold hyphens-auto break-words overflow-hidden p-1 [word-break:break-word] [hyphens:auto]";
-    const colorClasses =
-      square.category === "free" ? "text-purple-900" : "text-gray-800";
-    return `${baseClasses} ${colorClasses}`;
-  };
+  // Create a set for checked squares in print mode - only free space is "checked"
+  const checkedSquares = new Set<number>();
+  const freeSquare = bingoSquares.find((s) => s.category === "free");
+  if (freeSquare) {
+    checkedSquares.add(freeSquare.id);
+  }
 
   return (
-    <div className="print:m-0 print:p-4 max-w-4xl mx-auto bg-white min-h-screen print:min-h-0 mb-8">
+    <div className="print:m-0 print:p-4 max-w-4xl mx-auto bg-white min-h-screen print:min-h-0 mt-8 mb-8">
       <div className="flex justify-center">
         <div className="w-full max-w-2xl print:max-w-none">
           {/* Header */}
@@ -76,36 +68,13 @@ export function Print() {
           </div>
 
           {/* Bingo Grid */}
-          <div className="grid grid-cols-5 border-4 border-black print:border-2">
-            {gridSquares.map((square, index) => (
-              <div
-                key={`${square.id}-${index}`}
-                className={getButtonClasses(square)}
-              >
-                <div className={getTextClasses(square)}>
-                  {square.category === "free" ? (
-                    <>
-                      <div>{t("freeSquare.line1")}</div>
-                      <div>{t("freeSquare.line2")}</div>
-                    </>
-                  ) : (
-                    t(square.translationKey)
-                  )}
-                </div>
-
-                {square.category === "free" && (
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ backgroundColor: "rgba(124, 58, 237, 1.0)" }}
-                  >
-                    <div className="w-8 h-8 bg-primary flex items-center justify-center shadow-lg">
-                      <div className="w-5 h-5 text-primary-foreground">✓</div>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <Board
+            gridSquares={gridSquares}
+            checkedSquares={checkedSquares}
+            onToggleSquare={() => {}} // No-op function for print mode
+            printMode={true}
+            colorless={colorless}
+          />
         </div>
       </div>
     </div>
