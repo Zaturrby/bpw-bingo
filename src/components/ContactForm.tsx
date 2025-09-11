@@ -103,24 +103,6 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
           {t("contact.title")}
         </h2>
 
-        {highestCategoryData.score > 0 && (
-          <div className="mb-4">
-            <p className="text-purple-800 font-bold text-base">
-              {t("contact.highestCategory")}:{" "}
-              <span className="text-xl">
-                {t(`categories.${highestCategoryData.category}`)}
-              </span>{" "}
-              ({highestCategoryData.score}/
-              {
-                bingoSquares.filter(
-                  (s) => s.category === highestCategoryData.category
-                ).length
-              }
-              )
-            </p>
-          </div>
-        )}
-
         <div className="space-y-4">
           <div>
             <label
@@ -155,6 +137,31 @@ export function ContactForm({ checkedSquares, isMobile }: ContactFormProps) {
               placeholder={t("contact.emailPlaceholder")}
             />
           </div>
+
+          {checkedSquares.size > 0 && (
+            <div>
+              <label className="block text-sm font-bold text-purple-900 mb-3">
+                {t("contact.myConcerns")}
+              </label>
+              <div className="grid grid-cols-2 gap-3">
+                {['zekerheid', 'betaalbaarheid', 'tijdelijkheid', 'beschikbaarheid'].map(category => {
+                  const score = getCategoryScore(category);
+                  const isHighest = highestCategoryData.category === category && highestCategoryData.score > 0;
+                  
+                  return (
+                    <div key={category} className="flex items-center gap-2">
+                      <div className="w-8 h-8 bg-white border-2 border-black flex items-center justify-center">
+                        <span className={`text-sm font-bold ${score > 0 ? 'text-black' : 'text-white'}`}>{score}</span>
+                      </div>
+                      <span className={`text-sm text-purple-800 ${isHighest ? 'font-bold' : 'font-medium'}`}>
+                        {t(`categories.${category}`)}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
 
           <div>
             <label

@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "PRECARIOUSLY HOUSING BINGO",
+    "title": "PRECARIOUS HOUSING BINGO",
     "subtitle": "Fill in and find out! You might win a consolation prize, but also our sympathy and support for sure!",
     "instruction": "Check what applies to you ↓",
     "explanation": "We created this bingo to help people understand what precarious housing means and recognize if they or others are experiencing it.",
@@ -72,6 +72,7 @@
     "yourScore": "Your Score",
     "highestCategory": "Your highest concern",
     "noCategories": "No areas selected yet",
+    "myConcerns": "My concerns are:",
     "nameLabel": "Name",
     "namePlaceholder": "Your full name",
     "emailLabel": "Email Address",

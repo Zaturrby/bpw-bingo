@@ -26,7 +26,7 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
   return (
     <div className="mt-6">
       <div className="bg-purple-100 border-4 border-black p-2">
-        <div className="space-y-1 text-xs font-bold mb-2">
+        <div className="space-y-1 text-base font-bold mb-2">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 bg-purple-200 border-2 border-black"></div>
@@ -76,7 +76,7 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
           </div>
         </div>
         <div className="text-center border-t-4 border-black pt-2">
-          <p className="text-sm font-black text-purple-800">
+          <p className="text-base font-black text-purple-800">
             {t("app.total")}:{" "}
             {isMobile
               ? checkedSquares.size
