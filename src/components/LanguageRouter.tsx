@@ -2,8 +2,9 @@ import { BrowserRouter, Routes, Route, Navigate, useParams, useNavigate } from '
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import App from '../App';
+import { Print } from './Print';
 
-function LanguageWrapper() {
+function LanguageWrapper({ children }: { children?: React.ReactNode }) {
   const { lang } = useParams<{ lang: string }>();
   const navigate = useNavigate();
   const { i18n } = useTranslation();
@@ -24,7 +25,7 @@ function LanguageWrapper() {
     }
   }, [lang, i18n, navigate]);
 
-  return <App />;
+  return <>{children || <App />}</>;
 }
 
 export function LanguageRouter() {
@@ -32,6 +33,7 @@ export function LanguageRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/:lang" element={<LanguageWrapper />} />
+        <Route path="/:lang/print" element={<LanguageWrapper><Print /></LanguageWrapper>} />
         <Route path="/" element={<Navigate to="/nl" replace />} />
         <Route path="*" element={<Navigate to="/nl" replace />} />
       </Routes>
