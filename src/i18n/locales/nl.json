@@ -1,9 +1,9 @@
 {
   "app": {
-    "title": "PRECAIR WONEN BINGO",
-    "subtitle": "Onthul hoe precair jij woont – en hoe het woonbeleid faalt",
-    "instruction": "Check de vakjes die jouw woononzekerheid onthullen ↓",
-    "joinText": "Scoor je 0 of meer punten? Word dan lid van de bond",
+    "title": "WOON IK PRECAIR? BINGO",
+    "subtitle": "Vul in en kom er achter. Win misschien een troostprijs, maar zeker ook onze sympathie en steun!",
+    "instruction": "Streep aan wat voor jou geldt ↓",
+    "joinText": "BINGO! Je woont precair. Net als heel veel anderen. Dit maakt ons ook boos! Word lid van de Bond Precaire Woonvormen",
     "joinTextArrowMobile": "↓",
     "joinTextArrowDesktop": "→",
     "total": "Totaal",
@@ -23,36 +23,36 @@
   },
   "questions": {
     "zekerheid": {
-      "1": "Weet je niet of je volgend jaar nog in je huis kunt wonen?",
-      "2": "Heb je geen huur-bescherming?",
-      "3": "Kun je geen vrienden uitnodigen vanwege woonsituatie?",
-      "4": "Leef je met de angst uit je huis gezet te worden?",
-      "5": "Heb je geen zeggenschap over je leefomgeving?",
-      "6": "Voel je je niet thuis in je huis?"
+      "1": "Ik heb een tijdelijk huurcontract (alweer)",
+      "2": "Ik woon al maanden/jaren onzeker (er is geen vaste plek te vinden)",
+      "3": "Ik vrees elk moment mijn woonplek te kunnen verliezen",
+      "4": "Ik moet over een paar dagen/weken/maanden verhuizen maar kan niets anders vinden",
+      "5": "Er is geen stabiele woonsituatie hier",
+      "6": "Ik voel me niet thuis in mijn woning"
     },
     "betaalbaarheid": {
-      "7": "Is je huur hoger dan 700 euro?",
-      "8": "Besteed je meer dan 40% van je inkomen aan wonen?",
-      "9": "Kun je geen geld sparen door hoge woonkosten?",
-      "10": "Krijg je huurverhoging bij slecht onderhoud?",
-      "11": "Heb je huur-achterstand gehad?",
-      "12": "Kun je geen huurtoeslag krijgen?"
+      "7": "Ik heb schuld(en) door o.a. te duur te moeten wonen",
+      "8": "Ik woon te duur (moet meer dan 40% inkomen aan huur besteden)",
+      "9": "Ik kan de huur soms niet betalen",
+      "10": "Ik kan geen huurtoeslag aanvragen",
+      "11": "Mijn huisbaas is onbereikbaar of doet niks",
+      "12": "Ik woon in een slecht onderhouden (rot)woning/kamer"
     },
     "tijdelijkheid": {
-      "13": "Woon je anti-kraak?",
-      "14": "Heb je een contract korter dan 2 jaar?",
-      "15": "Moet je om de paar maanden verhuizen?",
-      "16": "Woon je in een tijdelijke voorziening?",
-      "17": "Slaap je op verschillende adressen?",
-      "18": "Heb je geen vast adres?"
+      "13": "Ik woon antikraak",
+      "14": "Mijn leven bestaat uit studeren, werken en constant verhuizen",
+      "15": "Ik kraak een woning",
+      "16": "Ik woon uit nood bij vrienden/familie",
+      "17": "Mijn woonsituatie heeft (flink) invloed op mijn leven",
+      "18": "Ik ben de enige in deze situatie"
     },
     "beschikbaarheid": {
-      "19": "Sta je langer dan 5 jaar ingeschreven?",
-      "20": "Heb je meer dan 50 reacties geplaatst zonder succes?",
-      "21": "Woon je nog bij je ouders terwijl je wilt verhuizen?",
-      "22": "Heb je je zoekgebied moeten uitbreiden?",
-      "23": "Kun je niet verhuizen terwijl dit wel nodig is?",
-      "24": "Heb je je eisen naar beneden moeten bijstellen?"
+      "19": "Ik haat die oneindige woningwachtlijsten",
+      "20": "Ik geloof niet in deze woningmarkt",
+      "21": "Ik sta al jaren ingeschreven voor sociale huur",
+      "22": "Ik heb meer dan 100 reacties geplaatst zonder succes",
+      "23": "Ik moet steeds mijn eisen naar beneden bijstellen",
+      "24": "Ik zoek al maanden/jaren naar een betaalbare woning"
     }
   }
 }
