@@ -5,7 +5,7 @@ export function Header() {
   const { t } = useTranslation();
 
   return (
-    <div className="text-center mb-6">
+    <div className="text-center mb-16">
       {/* Mobile: Stack vertically, Desktop: Side by side */}
       <div className="flex flex-col md:flex-row items-center md:items-start gap-4 mb-2 w-full">
         <a
