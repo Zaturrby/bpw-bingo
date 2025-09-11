@@ -66,5 +66,32 @@
       "23": "I constantly have to lower my requirements",
       "24": "I've been searching for affordable housing for months/years"
     }
+  },
+  "contact": {
+    "title": "Share Your Story",
+    "yourScore": "Your Score",
+    "highestCategory": "Your highest concern",
+    "noCategories": "No areas selected yet",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your full name",
+    "emailLabel": "Email Address",
+    "emailPlaceholder": "your.email@example.com",
+    "situationLabel": "Tell us about your housing situation",
+    "situationPlaceholder": "Describe your current housing situation, challenges you're facing, or how we can help...",
+    "submitButton": "Send Email to BPW Amsterdam",
+    "disclaimer": "This will open your email client to send a message to Bond Precaire Woonvormen Amsterdam.",
+    "emailSubject": "Housing Situation Sharing - Bingo Results",
+    "emailGreeting": "Hello Bond Precaire Woonvormen Amsterdam,",
+    "emailIntro": "I have completed the BPW Amsterdam Precarious Housing Bingo and would like to share my results with you.",
+    "scoreLabel": "My Bingo Score",
+    "notProvided": "Not provided",
+    "bingoResults": "BINGO RESULTS",
+    "totalScore": "Total Score",
+    "categoryBreakdown": "Score per category",
+    "highestConcern": "My highest area of concern",
+    "personalStory": "My housing story",
+    "noStoryProvided": "No additional story provided.",
+    "requestInfo": "I would like to receive an email from BPW Amsterdam with a signup link and more information about how we can work together to solve housing issues and fight for housing justice.",
+    "emailSignature": "Best regards"
   }
 }

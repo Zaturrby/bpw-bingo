@@ -66,5 +66,32 @@
       "23": "Ik moet steeds mijn eisen naar beneden bijstellen",
       "24": "Ik zoek al maanden/jaren naar een betaalbare woning"
     }
+  },
+  "contact": {
+    "title": "Deel Je Verhaal",
+    "yourScore": "Jouw Score",
+    "highestCategory": "Jouw grootste zorg",
+    "noCategories": "Nog geen gebieden geselecteerd",
+    "nameLabel": "Naam",
+    "namePlaceholder": "Je volledige naam",
+    "emailLabel": "E-mailadres",
+    "emailPlaceholder": "jouw.email@voorbeeld.nl",
+    "situationLabel": "Vertel ons over je woonsituatie",
+    "situationPlaceholder": "Beschrijf je huidige woonsituatie, uitdagingen waarmee je te maken hebt, of hoe we kunnen helpen...",
+    "submitButton": "Stuur Email naar BPW Amsterdam",
+    "disclaimer": "Dit opent je e-mailprogramma om een bericht naar de Bond Precaire Woonvormen Amsterdam te sturen.",
+    "emailSubject": "Woonsituatie Delen - Bingo Resultaten",
+    "emailGreeting": "Hallo Bond Precaire Woonvormen Amsterdam,",
+    "emailIntro": "Ik heb de BPW Amsterdam Precair Wonen Bingo ingevuld en wil graag mijn resultaten met jullie delen.",
+    "scoreLabel": "Mijn Bingo Score",
+    "notProvided": "Niet opgegeven",
+    "bingoResults": "BINGO RESULTATEN",
+    "totalScore": "Totaalscore",
+    "categoryBreakdown": "Score per categorie",
+    "highestConcern": "Mijn grootste zorggebied",
+    "personalStory": "Mijn woonverhaal",
+    "noStoryProvided": "Geen aanvullend verhaal opgegeven.",
+    "requestInfo": "Ik zou graag een e-mail ontvangen van BPW Amsterdam met een aanmeldlink en meer informatie over hoe we samen kunnen werken aan het oplossen van woonproblemen en strijden voor woonrechtvaardigheid.",
+    "emailSignature": "Met vriendelijke groet"
   }
 }

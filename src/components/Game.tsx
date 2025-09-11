@@ -3,7 +3,11 @@ import { Board } from "./Board";
 import { ScoreCounter } from "./ScoreCounter";
 import { BingoSquare, bingoSquares } from "../data/bingoData";
 
-export function Game() {
+interface GameProps {
+  onGameStateChange?: (checkedSquares: Set<number>, isMobile: boolean) => void;
+}
+
+export function Game({ onGameStateChange }: GameProps) {
   const [isMobile, setIsMobile] = useState<boolean>(() => 
     typeof window !== 'undefined' && window.innerWidth < 768
   );
@@ -21,6 +25,7 @@ export function Game() {
       newChecked.add(id);
     }
     setCheckedSquares(newChecked);
+    onGameStateChange?.(newChecked, isMobile);
   };
 
   const arrangeSquares = (mobile: boolean) => {
@@ -75,6 +80,13 @@ export function Game() {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobile]);
+
+  // Notify parent of initial state and any changes
+  useEffect(() => {
+    if (onGameStateChange) {
+      onGameStateChange(checkedSquares, isMobile);
+    }
+  }, [checkedSquares, isMobile, onGameStateChange]);
 
   return (
     <div className="w-full max-w-lg mx-auto md:max-w-4xl">
