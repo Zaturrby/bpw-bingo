@@ -11,9 +11,36 @@ export function Game({ onGameStateChange }: GameProps) {
   const [isMobile, setIsMobile] = useState<boolean>(() => 
     typeof window !== 'undefined' && window.innerWidth < 768
   );
-  const [checkedSquares, setCheckedSquares] = useState<Set<number>>(
-    () => new Set(isMobile ? [] : [25])
-  );
+  
+  // Initialize checkedSquares from localStorage or default
+  const [checkedSquares, setCheckedSquares] = useState<Set<number>>(() => {
+    if (typeof window === 'undefined') return new Set();
+    
+    try {
+      const saved = localStorage.getItem('bpw-bingo-checked-squares');
+      if (saved) {
+        const savedArray = JSON.parse(saved);
+        const savedSet = new Set(savedArray);
+        
+        // For mobile, remove free square (25) if it exists
+        if (window.innerWidth < 768 && savedSet.has(25)) {
+          savedSet.delete(25);
+        }
+        // For desktop, ensure free square (25) is included
+        else if (window.innerWidth >= 768 && !savedSet.has(25)) {
+          savedSet.add(25);
+        }
+        
+        return savedSet;
+      }
+    } catch (error) {
+      console.warn('Failed to load saved bingo state:', error);
+    }
+    
+    // Default state
+    const initialMobile = window.innerWidth < 768;
+    return new Set(initialMobile ? [] : [25]);
+  });
 
   const toggleSquare = (id: number) => {
     if (id === 25) return;
@@ -24,6 +51,14 @@ export function Game({ onGameStateChange }: GameProps) {
     } else {
       newChecked.add(id);
     }
+    
+    // Save to localStorage
+    try {
+      localStorage.setItem('bpw-bingo-checked-squares', JSON.stringify(Array.from(newChecked)));
+    } catch (error) {
+      console.warn('Failed to save bingo state:', error);
+    }
+    
     setCheckedSquares(newChecked);
     onGameStateChange?.(newChecked, isMobile);
   };
@@ -72,6 +107,14 @@ export function Game({ onGameStateChange }: GameProps) {
           } else if (!newIsMobile && !newChecked.has(25)) {
             newChecked.add(25);
           }
+          
+          // Save to localStorage
+          try {
+            localStorage.setItem('bpw-bingo-checked-squares', JSON.stringify(Array.from(newChecked)));
+          } catch (error) {
+            console.warn('Failed to save bingo state:', error);
+          }
+          
           return newChecked;
         });
       }
