@@ -1,12 +1,16 @@
-import { useTranslation } from 'react-i18next';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export function LanguageSwitcher() {
-  const { i18n } = useTranslation();
+  const navigate = useNavigate();
+  const { lang } = useParams<{ lang: string }>();
 
   const toggleLanguage = () => {
-    const newLanguage = i18n.language === 'nl' ? 'en' : 'nl';
-    i18n.changeLanguage(newLanguage);
+    const currentLang = lang || 'nl';
+    const newLanguage = currentLang === 'nl' ? 'en' : 'nl';
+    navigate(`/${newLanguage}`, { replace: true });
   };
+
+  const currentLang = lang || 'nl';
 
   return (
     <button
@@ -14,7 +18,7 @@ export function LanguageSwitcher() {
       className="fixed top-4 right-4 z-10 bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg transition-colors duration-200 text-sm"
       aria-label="Switch language"
     >
-      {i18n.language === 'nl' ? '🇬🇧 EN' : '🇳🇱 NL'}
+      {currentLang === 'nl' ? '🇬🇧 EN' : '🇳🇱 NL'}
     </button>
   );
 }
