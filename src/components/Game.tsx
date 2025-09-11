@@ -19,7 +19,7 @@ export function Game({ onGameStateChange }: GameProps) {
     try {
       const saved = localStorage.getItem('bpw-bingo-checked-squares');
       if (saved) {
-        const savedArray = JSON.parse(saved);
+        const savedArray = JSON.parse(saved) as number[];
         const savedSet = new Set(savedArray);
         
         // For mobile, remove free square (25) if it exists
