@@ -1,8 +1,7 @@
-import { useNavigate, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export function ColorSwitcher() {
   const navigate = useNavigate();
-  const { lang } = useParams<{ lang: string }>();
   const location = useLocation();
 
   const toggleColorMode = () => {
