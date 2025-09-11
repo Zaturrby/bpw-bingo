@@ -1,0 +1,95 @@
+import { useState, useEffect } from "react";
+import { Board } from "./Board";
+import { ScoreCounter } from "./ScoreCounter";
+import { BingoSquare, bingoSquares } from "../data/bingoData";
+
+export function Game() {
+  const [isMobile, setIsMobile] = useState<boolean>(() => 
+    typeof window !== 'undefined' && window.innerWidth < 768
+  );
+  const [checkedSquares, setCheckedSquares] = useState<Set<number>>(
+    () => new Set(isMobile ? [] : [25])
+  );
+
+  const toggleSquare = (id: number) => {
+    if (id === 25) return;
+
+    const newChecked = new Set(checkedSquares);
+    if (newChecked.has(id)) {
+      newChecked.delete(id);
+    } else {
+      newChecked.add(id);
+    }
+    setCheckedSquares(newChecked);
+  };
+
+  const arrangeSquares = (mobile: boolean) => {
+    const nonFreeSquares = bingoSquares.filter(
+      (square) => square.category !== "free"
+    );
+    const shuffled = [...nonFreeSquares].sort(() => Math.random() - 0.5);
+    
+    if (mobile) {
+      // Mobile: return 24 squares (no free square)
+      return shuffled.slice(0, 24);
+    } else {
+      // Desktop: return 25 squares with free square in center
+      const grid: BingoSquare[] = [];
+      let shuffledIndex = 0;
+
+      for (let i = 0; i < 25; i++) {
+        if (i === 12) {
+          grid.push(bingoSquares.find((s) => s.category === "free")!);
+        } else {
+          grid.push(shuffled[shuffledIndex]);
+          shuffledIndex++;
+        }
+      }
+
+      return grid;
+    }
+  };
+
+  const [gridSquares, setGridSquares] = useState<BingoSquare[]>(() => arrangeSquares(isMobile));
+
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 768;
+      if (newIsMobile !== isMobile) {
+        setIsMobile(newIsMobile);
+        setGridSquares(arrangeSquares(newIsMobile));
+        
+        // Update checked squares: remove free square if switching to mobile, add it if switching to desktop
+        setCheckedSquares(prev => {
+          const newChecked = new Set(prev);
+          if (newIsMobile && newChecked.has(25)) {
+            newChecked.delete(25);
+          } else if (!newIsMobile && !newChecked.has(25)) {
+            newChecked.add(25);
+          }
+          return newChecked;
+        });
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
+
+  return (
+    <div className="w-full max-w-lg mx-auto md:max-w-4xl">
+      <div className="flex flex-col p-1 md:p-2">
+        <Board
+          gridSquares={gridSquares}
+          checkedSquares={checkedSquares}
+          onToggleSquare={toggleSquare}
+        />
+        
+        <ScoreCounter
+          checkedSquares={checkedSquares}
+          isMobile={isMobile}
+        />
+      </div>
+    </div>
+  );
+}

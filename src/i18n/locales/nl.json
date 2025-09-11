@@ -1,14 +1,26 @@
 {
   "app": {
-    "title": "WOON IK PRECAIR? BINGO",
+    "title": "PRECAIR WONEN BINGO",
     "subtitle": "Vul in en kom er achter. Win misschien een troostprijs, maar zeker ook onze sympathie en steun!",
     "instruction": "Streep aan wat voor jou geldt ↓",
+    "explanation": "We hebben deze bingo gemaakt om mensen te helpen begrijpen wat precair wonen betekent en te herkennen of zij of anderen het ervaren.",
     "joinText": "BINGO! Je woont precair. Net als heel veel anderen. Dit maakt ons ook boos! Word lid van de Bond Precaire Woonvormen",
+    "joinTextZeroScore": "Je woont niet precair, maar heel veel anderen wel. Word toch lid!",
     "joinTextArrowMobile": "↓",
-    "joinTextArrowDesktop": "→",
+    "joinTextArrowDesktop": "↓",
     "total": "Totaal",
     "logoAlt": "BPW Amsterdam Logo - Click to visit website",
     "joinImageAlt": "Word Lid van BPW - Click to join"
+  },
+  "footer": {
+    "intro": "De Bond Precaire Woonvormen (BPW) strijdt voor het recht op wonen van mensen die tijdelijk, onzeker of te duur wonen.",
+    "title": "Waarom organiseren?",
+    "paragraph1": "Als je iets wil veranderen moet je je organiseren. Samen kunnen we een vuist maken en van onderop de wooncrisis aanpakken. We strijden voor woonzekerheid, lagere huren, zeggenschap en duurzame woonruimte voor iedereen.",
+    "paragraph2": "Door lid te worden van de BPW maak je deel uit van een solidariteitsvereniging waarin we elkaar helpen om precaire woonsituaties aan te pakken en woonrechtvaardigheid te realiseren.",
+    "learnMoreText": "Lees meer over hoe we werken",
+    "learnMoreLink": "https://bondprecairewoonvormen.nl/overdebpw/",
+    "joinText": "Word lid van de BPW",
+    "joinLink": "https://bondprecairewoonvormen.nl/lidworden/"
   },
   "categories": {
     "zekerheid": "Zekerheid",
