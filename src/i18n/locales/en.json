@@ -80,7 +80,7 @@
     "situationLabel": "Tell us about your housing situation",
     "situationPlaceholder": "Describe your current housing situation, challenges you're facing, or how we can help...",
     "submitButton": "Send Email to BPW Amsterdam",
-    "disclaimer": "This will open your email client to send a message to Bond Precaire Woonvormen Amsterdam.",
+    "disclaimer": "This will open your email client to send a message to BPW Amsterdam.",
     "emailSubject": "Housing Situation Sharing - Bingo Results",
     "emailGreeting": "Hello Bond Precaire Woonvormen Amsterdam,",
     "emailIntro": "I have completed the BPW Amsterdam Precarious Housing Bingo and would like to share my results with you.",
@@ -94,5 +94,11 @@
     "noStoryProvided": "No additional story provided.",
     "requestInfo": "I would like to receive an email from BPW Amsterdam with a signup link and more information about how we can work together to solve housing issues and fight for housing justice.",
     "emailSignature": "Best regards"
+  },
+  "printFooter": {
+    "joinBpw": "Join BPW",
+    "joinBpwQR": "QR code to join BPW",
+    "playOnline": "Play Bingo online",
+    "playOnlineQR": "QR code to play Bingo online"
   }
 }

@@ -4,6 +4,7 @@ import bpwLogo from "../images/400-400-max.jpg";
 import { Board } from "./Board";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ColorSwitcher } from "./ColorSwitcher";
+import { PrintFooter } from "./PrintFooter";
 
 interface PrintProps {
   colorless?: boolean;
@@ -45,38 +46,42 @@ export function Print({ colorless = false }: PrintProps) {
   }
 
   return (
-    <div className="print:m-0 print:p-4 max-w-4xl mx-auto bg-white min-h-screen print:min-h-0 mt-8 mb-8">
-      <div className="flex justify-center">
-        <div className="w-full max-w-2xl print:max-w-none">
-          {/* Header */}
-          <div className="text-center mb-8 print:mb-4">
-            <div className="flex flex-row items-center justify-start gap-4 mb-4">
-              <div className="flex-shrink-0 flex items-center">
-                <img
-                  src={bpwLogo}
-                  alt={t("app.logoAlt")}
-                  className="w-24 h-24 object-contain print-logo"
-                />
-              </div>
-              <div className="text-left flex-grow flex flex-col justify-center">
-                <h1 className="text-2xl md:text-3xl print:text-2xl font-black text-black uppercase tracking-wide font-activist mb-2">
-                  {t("app.title")}
-                </h1>
-                <p className="text-black font-bold text-base print:text-sm mb-2">
-                  {t("app.subtitle")}
-                </p>
+    <div className="min-h-screen bg-white p-4 relative print:m-0 print:p-4 print:min-h-0">
+      <div className="w-full max-w-lg md:max-w-2xl mx-auto">
+        <div className="flex justify-center">
+          <div className="w-full max-w-2xl print:max-w-none">
+            {/* Header */}
+            <div className="text-center mb-8 print:mb-4">
+              <div className="flex flex-row items-center justify-start gap-4 mb-4">
+                <div className="flex-shrink-0 flex items-center">
+                  <img
+                    src={bpwLogo}
+                    alt={t("app.logoAlt")}
+                    className="w-24 h-24 object-contain print-logo"
+                  />
+                </div>
+                <div className="text-left flex-grow flex flex-col justify-center">
+                  <h1 className="text-2xl md:text-3xl print:text-2xl font-black text-black uppercase tracking-wide font-activist mb-2">
+                    {t("app.title")}
+                  </h1>
+                  <p className="text-black font-bold text-base print:text-sm mb-2">
+                    {t("app.subtitle")}
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
 
-          {/* Bingo Grid */}
-          <Board
-            gridSquares={gridSquares}
-            checkedSquares={checkedSquares}
-            onToggleSquare={() => {}} // No-op function for print mode
-            printMode={true}
-            colorless={colorless}
-          />
+            {/* Bingo Grid */}
+            <Board
+              gridSquares={gridSquares}
+              checkedSquares={checkedSquares}
+              onToggleSquare={() => {}} // No-op function for print mode
+              printMode={true}
+              colorless={colorless}
+            />
+            
+            <PrintFooter />
+          </div>
         </div>
       </div>
       <LanguageSwitcher />

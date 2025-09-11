@@ -99,8 +99,8 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
   };
 
   return (
-    <div className={`mt-8 mb-20 ${colorless ? 'bg-white' : 'bg-purple-50'} border-4 border-black p-4 md:p-6`}>
-      <div className="max-w-lg md:max-w-2xl mx-auto">
+    <div className={`mt-8 ${printMode ? 'mb-8' : 'mb-20'} ${colorless ? 'bg-white' : 'bg-purple-50'} border-4 border-black p-4 md:p-6`}>
+      <div className={`${printMode ? 'max-w-2xl' : 'max-w-lg md:max-w-2xl'} mx-auto`}>
         <h2 className={`text-lg md:text-xl font-black ${colorless ? 'text-black' : 'text-purple-900'} mb-4 text-left`}>
           {t("contact.title")}
         </h2>
