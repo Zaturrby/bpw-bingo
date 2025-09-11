@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import wordLidImage from "../images/583593e2-659c-713e-3712-9947442f1601.png";
 import { BingoSquare, categoryColors, bingoSquares } from "../data/bingoData";
 
 
 export function BingoCard() {
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState<boolean>(() => 
     typeof window !== 'undefined' && window.innerWidth < 768
   );
@@ -130,11 +132,11 @@ export function BingoCard() {
               <div className={getTextClasses(square)}>
                 {square.category === "free" ? (
                   <>
-                    <div>GRATIS</div>
-                    <div>VAKJE</div>
+                    <div>{t('freeSquare.line1')}</div>
+                    <div>{t('freeSquare.line2')}</div>
                   </>
                 ) : (
-                  square.text
+                  t(square.translationKey)
                 )}
               </div>
 
@@ -160,7 +162,7 @@ export function BingoCard() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <div className="w-3 h-3 bg-purple-200 border-2 border-black"></div>
-                    <span className="text-purple-800">Zekerheid</span>
+                    <span className="text-purple-800">{t('categories.zekerheid')}</span>
                   </div>
                   <span className="text-purple-800">
                     {getCategoryScore("zekerheid")}/
@@ -170,7 +172,7 @@ export function BingoCard() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <div className="w-3 h-3 bg-violet-200 border-2 border-black"></div>
-                    <span className="text-violet-800">Betaalbaarheid</span>
+                    <span className="text-violet-800">{t('categories.betaalbaarheid')}</span>
                   </div>
                   <span className="text-violet-800">
                     {getCategoryScore("betaalbaarheid")}/
@@ -180,7 +182,7 @@ export function BingoCard() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <div className="w-3 h-3 bg-fuchsia-200 border-2 border-black"></div>
-                    <span className="text-fuchsia-800">Tijdelijkheid</span>
+                    <span className="text-fuchsia-800">{t('categories.tijdelijkheid')}</span>
                   </div>
                   <span className="text-fuchsia-800">
                     {getCategoryScore("tijdelijkheid")}/
@@ -190,7 +192,7 @@ export function BingoCard() {
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-1">
                     <div className="w-3 h-3 bg-pink-200 border-2 border-black"></div>
-                    <span className="text-pink-800">Beschikbaarheid</span>
+                    <span className="text-pink-800">{t('categories.beschikbaarheid')}</span>
                   </div>
                   <span className="text-pink-800">
                     {getCategoryScore("beschikbaarheid")}/
@@ -200,14 +202,14 @@ export function BingoCard() {
               </div>
               <div className="text-center border-t-4 border-black pt-2">
                 <p className="text-sm font-black text-purple-800">
-                  Totaal: {isMobile ? checkedSquares.size : (checkedSquares.has(25) ? checkedSquares.size - 1 : checkedSquares.size)} / 24
+                  {t('app.total')}: {isMobile ? checkedSquares.size : (checkedSquares.has(25) ? checkedSquares.size - 1 : checkedSquares.size)} / 24
                 </p>
               </div>
             </div>
 
             <div className="text-center md:text-left mt-6">
               <p className="text-black font-bold text-base md:text-lg">
-                Scoor je 0 of meer punten? Word dan lid van de bond <span className="inline md:hidden">↓</span><span className="hidden md:inline">→</span>
+                {t('app.joinText')} <span className="inline md:hidden">{t('app.joinTextArrowMobile')}</span><span className="hidden md:inline">{t('app.joinTextArrowDesktop')}</span>
               </p>
             </div>
           </div>
@@ -222,7 +224,7 @@ export function BingoCard() {
               >
                 <img
                   src={wordLidImage}
-                  alt="Word Lid van BPW - Click to join"
+                  alt={t('app.joinImageAlt')}
                   className="w-full h-full object-contain cursor-pointer"
                 />
               </a>

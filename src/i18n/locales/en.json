@@ -1,0 +1,58 @@
+{
+  "app": {
+    "title": "PRECARIOUS HOUSING BINGO",
+    "subtitle": "Reveal how precarious your housing is – and how housing policy fails",
+    "instruction": "Check the boxes that reveal your housing insecurity ↓",
+    "joinText": "Did you score 0 or more points? Then become a member of the union",
+    "joinTextArrowMobile": "↓",
+    "joinTextArrowDesktop": "→",
+    "total": "Total",
+    "logoAlt": "BPW Amsterdam Logo - Click to visit website",
+    "joinImageAlt": "Become a Member of BPW - Click to join"
+  },
+  "categories": {
+    "zekerheid": "Security",
+    "betaalbaarheid": "Affordability",
+    "tijdelijkheid": "Temporality",
+    "beschikbaarheid": "Availability",
+    "free": "FREE SPACE"
+  },
+  "freeSquare": {
+    "line1": "FREE",
+    "line2": "SPACE"
+  },
+  "questions": {
+    "zekerheid": {
+      "1": "Don't you know if you can still live in your house next year?",
+      "2": "Do you have no rental protection?",
+      "3": "Can't you invite friends because of your housing situation?",
+      "4": "Do you live with the fear of being evicted?",
+      "5": "Do you have no say over your living environment?",
+      "6": "Don't you feel at home in your house?"
+    },
+    "betaalbaarheid": {
+      "7": "Is your rent higher than 700 euros?",
+      "8": "Do you spend more than 40% of your income on housing?",
+      "9": "Can't you save money due to high housing costs?",
+      "10": "Do you get rent increases with poor maintenance?",
+      "11": "Have you had rent arrears?",
+      "12": "Can't you get housing allowance?"
+    },
+    "tijdelijkheid": {
+      "13": "Do you live as a property guardian (anti-squat)?",
+      "14": "Do you have a contract shorter than 2 years?",
+      "15": "Do you have to move every few months?",
+      "16": "Do you live in temporary accommodation?",
+      "17": "Do you sleep at different addresses?",
+      "18": "Do you have no fixed address?"
+    },
+    "beschikbaarheid": {
+      "19": "Have you been registered for longer than 5 years?",
+      "20": "Have you placed more than 50 applications without success?",
+      "21": "Do you still live with your parents while wanting to move out?",
+      "22": "Have you had to expand your search area?",
+      "23": "Can't you move while this is necessary?",
+      "24": "Have you had to lower your requirements?"
+    }
+  }
+}

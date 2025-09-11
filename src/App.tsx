@@ -1,9 +1,13 @@
+import { useTranslation } from 'react-i18next';
 import { BingoCard } from "./components/BingoCard";
+import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import bpwLogo from "./images/400-400-max.jpg";
 
 export default function App() {
+  const { t } = useTranslation();
+  
   return (
-    <div className="min-h-screen bg-white p-4">
+    <div className="min-h-screen bg-white p-4 relative">
       <div className="w-full max-w-lg md:max-w-2xl mx-auto">
         <div className="text-center mb-6">
           {/* Mobile: Stack vertically, Desktop: Side by side */}
@@ -16,21 +20,21 @@ export default function App() {
             >
               <img
                 src={bpwLogo}
-                alt="BPW Amsterdam Logo - Click to visit website"
+                alt={t('app.logoAlt')}
                 className="w-36 h-36 md:h-56 md:w-56 object-contain cursor-pointer"
               />
             </a>
             <div className="text-center md:text-left flex flex-col justify-between md:h-56">
               <div>
                 <h1 className="text-2xl md:text-3xl font-black text-black uppercase tracking-wide font-activist mb-3">
-                  PRECAIR WONEN BINGO
+                  {t('app.title')}
                 </h1>
                 <p className="text-black font-bold text-base md:text-lg mb-3">
-                  Onthul hoe precair jij woont – en hoe het woonbeleid faalt
+                  {t('app.subtitle')}
                 </p>
               </div>
               <p className="text-black font-bold text-base md:text-lg">
-                Check de vakjes die jouw woononzekerheid onthullen ↓
+                {t('app.instruction')}
               </p>
             </div>
           </div>
@@ -38,6 +42,7 @@ export default function App() {
 
         <BingoCard />
       </div>
+      <LanguageSwitcher />
     </div>
   );
 }

@@ -1,0 +1,58 @@
+{
+  "app": {
+    "title": "PRECAIR WONEN BINGO",
+    "subtitle": "Onthul hoe precair jij woont – en hoe het woonbeleid faalt",
+    "instruction": "Check de vakjes die jouw woononzekerheid onthullen ↓",
+    "joinText": "Scoor je 0 of meer punten? Word dan lid van de bond",
+    "joinTextArrowMobile": "↓",
+    "joinTextArrowDesktop": "→",
+    "total": "Totaal",
+    "logoAlt": "BPW Amsterdam Logo - Click to visit website",
+    "joinImageAlt": "Word Lid van BPW - Click to join"
+  },
+  "categories": {
+    "zekerheid": "Zekerheid",
+    "betaalbaarheid": "Betaalbaarheid",
+    "tijdelijkheid": "Tijdelijkheid",
+    "beschikbaarheid": "Beschikbaarheid",
+    "free": "GRATIS VAKJE"
+  },
+  "freeSquare": {
+    "line1": "GRATIS",
+    "line2": "VAKJE"
+  },
+  "questions": {
+    "zekerheid": {
+      "1": "Weet je niet of je volgend jaar nog in je huis kunt wonen?",
+      "2": "Heb je geen huur-bescherming?",
+      "3": "Kun je geen vrienden uitnodigen vanwege woonsituatie?",
+      "4": "Leef je met de angst uit je huis gezet te worden?",
+      "5": "Heb je geen zeggenschap over je leefomgeving?",
+      "6": "Voel je je niet thuis in je huis?"
+    },
+    "betaalbaarheid": {
+      "7": "Is je huur hoger dan 700 euro?",
+      "8": "Besteed je meer dan 40% van je inkomen aan wonen?",
+      "9": "Kun je geen geld sparen door hoge woonkosten?",
+      "10": "Krijg je huurverhoging bij slecht onderhoud?",
+      "11": "Heb je huur-achterstand gehad?",
+      "12": "Kun je geen huurtoeslag krijgen?"
+    },
+    "tijdelijkheid": {
+      "13": "Woon je anti-kraak?",
+      "14": "Heb je een contract korter dan 2 jaar?",
+      "15": "Moet je om de paar maanden verhuizen?",
+      "16": "Woon je in een tijdelijke voorziening?",
+      "17": "Slaap je op verschillende adressen?",
+      "18": "Heb je geen vast adres?"
+    },
+    "beschikbaarheid": {
+      "19": "Sta je langer dan 5 jaar ingeschreven?",
+      "20": "Heb je meer dan 50 reacties geplaatst zonder succes?",
+      "21": "Woon je nog bij je ouders terwijl je wilt verhuizen?",
+      "22": "Heb je je zoekgebied moeten uitbreiden?",
+      "23": "Kun je niet verhuizen terwijl dit wel nodig is?",
+      "24": "Heb je je eisen naar beneden moeten bijstellen?"
+    }
+  }
+}
