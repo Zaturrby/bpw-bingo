@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import wordLidImage from "../images/583593e2-659c-713e-3712-9947442f1601.png";
+import wordLidImage from "../images/word-lid-button.png";
 
 export function OrganiseBlock() {
   const { t } = useTranslation();

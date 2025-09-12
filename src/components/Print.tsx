@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { bingoSquares } from "./game/bingoData";
-import bpwLogo from "../images/400-400-max.jpg";
+import bpwLogo from "../images/bpw-amsterdam-logo.jpg";
 import { Board } from "./game/Board";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ColorSwitcher } from "./ColorSwitcher";
