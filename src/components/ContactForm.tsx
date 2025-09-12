@@ -90,7 +90,24 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
     );
 
     const mailtoLink = `mailto:amsterdam@bondprecairewoonvormen.nl?subject=${subject}&body=${body}`;
-    window.open(mailtoLink, "_blank");
+    
+    // Check if the URL is too long (iOS Safari limit is ~2048 chars)
+    if (mailtoLink.length > 1800) {
+      // Fallback: create a shorter version
+      const shortBody = encodeURIComponent(
+        `${t("contact.emailGreeting")}\n\n` +
+        `${t("contact.emailIntro")}\n\n` +
+        `${t("contact.nameLabel")}: ${name || t("contact.notProvided")}\n` +
+        `${t("contact.totalScore")}: ${totalScore}/24\n\n` +
+        `${t("contact.requestInfo")}\n\n` +
+        `${t("contact.emailSignature")}${name ? `,\n${name}` : ''}`
+      );
+      const shortMailtoLink = `mailto:amsterdam@bondprecairewoonvormen.nl?subject=${subject}&body=${shortBody}`;
+      window.location.href = shortMailtoLink;
+    } else {
+      // Use window.location.href instead of window.open for better mobile compatibility
+      window.location.href = mailtoLink;
+    }
   };
 
   return (
