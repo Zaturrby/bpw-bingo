@@ -7,6 +7,7 @@ interface BoardProps {
   onToggleSquare: (id: number) => void;
   printMode?: boolean;
   colorless?: boolean;
+  isMobile?: boolean;
 }
 
 export function Board({
@@ -15,13 +16,26 @@ export function Board({
   onToggleSquare,
   printMode = false,
   colorless = false,
+  isMobile = false,
 }: BoardProps) {
   const { t } = useTranslation();
 
-  const getButtonClasses = (square: BingoSquare) => {
+  const getButtonClasses = (square: BingoSquare, index: number) => {
+    const gridCols = printMode ? 5 : (isMobile ? 3 : 5);
+    const isFirstRow = index < gridCols;
+    const isLastRow = index >= gridSquares.length - gridCols;
+    const isFirstCol = index % gridCols === 0;
+    const isLastCol = index % gridCols === gridCols - 1;
+    
     const baseClasses = printMode
-      ? "relative border-2 border-black p-2 aspect-square -ml-px -mt-px print:border-black"
-      : "relative border-2 border-black p-1.5 transition-all duration-200 aspect-square -ml-px -mt-px";
+      ? "relative border-black p-2 aspect-square print:border-black"
+      : "relative border-black p-1.5 transition-all duration-200 aspect-square";
+    
+    // Build border classes based on position
+    let borderClasses = "border-r-4 border-b-4";
+    if (isFirstRow) borderClasses += " border-t-4";
+    if (isFirstCol) borderClasses += " border-l-4";
+    
     const colorClasses = colorless
       ? "bg-white"
       : categoryColors[square.category];
@@ -36,7 +50,7 @@ export function Board({
         ? ""
         : "cursor-pointer";
 
-    return `${baseClasses} ${colorClasses} ${hoverClasses} ${categoryClasses}`;
+    return `${baseClasses} ${borderClasses} ${colorClasses} ${hoverClasses} ${categoryClasses}`;
   };
 
   const getTextClasses = (square: BingoSquare) => {
@@ -59,8 +73,8 @@ export function Board({
     <div
       className={
         printMode
-          ? "grid grid-cols-5 border-4 border-black print:border-2"
-          : "grid grid-cols-3 md:grid-cols-5 border-2 md:border-4 border-black"
+          ? "grid grid-cols-5"
+          : "grid grid-cols-3 md:grid-cols-5"
       }
     >
       {gridSquares.map((square, index) => {
@@ -69,7 +83,7 @@ export function Board({
           <Element
             key={`${square.id}-${index}`}
             onClick={printMode ? undefined : () => onToggleSquare(square.id)}
-            className={getButtonClasses(square)}
+            className={getButtonClasses(square, index)}
             disabled={printMode ? undefined : square.category === "free"}
           >
             <div className={getTextClasses(square)}>

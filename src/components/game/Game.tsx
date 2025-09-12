@@ -146,6 +146,7 @@ export function Game({ onGameStateChange }: GameProps) {
           gridSquares={gridSquares}
           checkedSquares={checkedSquares}
           onToggleSquare={toggleSquare}
+          isMobile={isMobile}
         />
 
         <ScoreCounter checkedSquares={checkedSquares} isMobile={isMobile} />
