@@ -1,0 +1,19 @@
+/* ===========================
+   BASE STYLES
+   =========================== */
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  }
+}
+
+/* ===========================
+   CUSTOM COMPONENTS
+   =========================== */
+@layer components {
+  .font-activist {
+    font-family: 'Oswald', 'Impact', 'Arial Black', sans-serif;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+  }
+}
