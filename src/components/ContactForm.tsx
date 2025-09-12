@@ -173,7 +173,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
                           </span>
                         )}
                       </div>
-                      <span className={`text-sm ${colorless ? 'text-black' : 'text-purple-800'} ${isHighest ? 'font-bold' : 'font-medium'}`}>
+                      <span className={`text-sm ${colorless ? 'text-black' : 'text-purple-900'} ${isHighest ? 'font-bold' : 'font-medium'}`}>
                         {t(`game.categories.${category}`)}
                       </span>
                     </div>
@@ -181,7 +181,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
                 })}
               </div>
               {(checkedSquares.size > 0 || printMode) && (
-                <div className={`mt-4 text-sm ${colorless ? 'text-black' : 'text-purple-800'}`}>
+                <div className={`mt-4 text-sm ${colorless ? 'text-black' : 'text-purple-900'}`}>
                   <strong>
                     {t("contact.totalScore")}: 
                     {printMode ? (
@@ -226,7 +226,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
         </div>
 
         {!printMode && (
-          <p className={`text-xs ${colorless ? 'text-black' : 'text-purple-700'} mt-4 text-center`}>
+          <p className={`text-xs ${colorless ? 'text-black' : 'text-purple-900'} mt-4 text-center`}>
             {t("contact.disclaimer")}
           </p>
         )}
