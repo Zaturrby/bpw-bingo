@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import bpwLogo from "../images/bpw-amsterdam-logo.jpg";
+import bpwLogo from "../images/bpw-amsterdam-logo-gpt.png";
 
 export function Header() {
   const { t } = useTranslation();
