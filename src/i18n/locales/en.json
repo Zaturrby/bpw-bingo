@@ -4,10 +4,8 @@
     "subtitle": "Fill in and find out! You might win a consolation prize, but also our sympathy and support for sure!",
     "instruction": "Check what applies to you ↓",
     "explanation": "We created this bingo to help people understand what precarious housing means and recognize if they or others are experiencing it.",
-    "joinText": "BINGO! You are living precariously. And many others with you. This upsets us too! Become a member of the Bond Precaire Woonvormen",
-    "joinTextZeroScore": "You're not living precariously, but many do. Become a member anyway!",
-    "joinTextArrowMobile": "↓",
-    "joinTextArrowDesktop": "↓",
+    "joinText": "BINGO! You are living precariously. And many others with you. This upsets us too! Become a member of the Bond Precaire Woonvormen ↓",
+    "joinTextZeroScore": "You're not living precariously, but many do. Become a member anyway! ↓",
     "total": "Total",
     "logoAlt": "BPW Amsterdam Logo - Click to visit website",
     "joinImageAlt": "Become a Member of BPW - Click to join",
@@ -29,54 +27,49 @@
       "zekerheid": "Security",
       "betaalbaarheid": "Affordability",
       "tijdelijkheid": "Temporality",
-      "beschikbaarheid": "Availability",
-      "free": "FREE SPACE"
+      "beschikbaarheid": "Availability"
     },
     "questions": {
-    "zekerheid": {
-      "1": "I have a temporary housing contract (again)",
-      "2": "I live in temporary places for a long time already",
-      "3": "I fear being evicted anytime/soon",
-      "4": "I have to move soon but can't find anything else",
-      "5": "There is no stable living situation here",
-      "6": "I am not at home in my house"
-    },
-    "betaalbaarheid": {
-      "7": "I'm in debt(s) due to having to live too expensively",
-      "8": "My room is far too expensive",
-      "9": "I sometimes can't pay my rent",
-      "10": "I can't apply for housing allowance",
-      "11": "My landlord can't be reached or doesn't respond",
-      "12": "I live with neglected maintenance"
-    },
-    "tijdelijkheid": {
-      "13": "I live anti-squat, eviction is uncertain",
-      "14": "My life consists of 3 major topics: studying, working and moving house",
-      "15": "I'm living in a squat",
-      "16": "I live with friends/family out of necessity",
-      "17": "The housing situation has a (big) impact on my life",
-      "18": "I am the only one in this situation"
-    },
-    "beschikbaarheid": {
-      "19": "I hate those never-ending waiting lists",
-      "20": "I don't believe in this housing system",
-      "21": "I've been registered for social housing for years",
-      "22": "I've placed more than 100 applications without success",
-      "23": "I constantly have to lower my requirements",
-      "24": "I've been searching for affordable housing for months/years"
-    }
+      "zekerheid": {
+        "1": "I have a temporary housing contract (again)",
+        "2": "I live in temporary places for a long time already",
+        "3": "I fear being evicted anytime/soon",
+        "4": "I have to move soon but can't find anything else",
+        "5": "There is no stable living situation here",
+        "6": "I am not at home in my house"
+      },
+      "betaalbaarheid": {
+        "7": "I'm in debt(s) due to having to live too expensively",
+        "8": "My room is far too expensive",
+        "9": "I sometimes can't pay my rent",
+        "10": "I can't apply for housing allowance",
+        "11": "My landlord can't be reached or doesn't respond",
+        "12": "I live with neglected maintenance"
+      },
+      "tijdelijkheid": {
+        "13": "I live anti-squat, eviction is uncertain",
+        "14": "My life consists of 3 major topics: studying, working and moving house",
+        "15": "I'm living in a squat",
+        "16": "I live with friends/family out of necessity",
+        "17": "The housing situation has a (big) impact on my life",
+        "18": "I am the only one in this situation"
+      },
+      "beschikbaarheid": {
+        "19": "I hate those never-ending waiting lists",
+        "20": "I don't believe in this housing system",
+        "21": "I've been registered for social housing for years",
+        "22": "I've placed more than 100 applications without success",
+        "23": "I constantly have to lower my requirements",
+        "24": "I've been searching for affordable housing for months/years"
+      }
     }
   },
   "contact": {
     "title": "Share Your Story",
-    "yourScore": "Your Score",
-    "highestCategory": "Your highest concern",
-    "noCategories": "No areas selected yet",
     "myConcerns": "My concerns are:",
     "nameLabel": "Name",
     "namePlaceholder": "Your full name",
     "emailLabel": "Email Address",
-    "emailPlaceholder": "your.email@example.com",
     "situationLabel": "Tell us about your housing situation",
     "situationPlaceholder": "Describe your current housing situation, challenges you're facing, or how we can help...",
     "submitButton": "Send Email to BPW Amsterdam",
@@ -84,7 +77,6 @@
     "emailSubject": "Housing Situation Sharing - Bingo Results",
     "emailGreeting": "Hello Bond Precaire Woonvormen Amsterdam,",
     "emailIntro": "I have completed the BPW Amsterdam Precarious Housing Bingo and would like to share my results with you.",
-    "scoreLabel": "My Bingo Score",
     "notProvided": "Not provided",
     "bingoResults": "BINGO RESULTS",
     "totalScore": "Total Score",

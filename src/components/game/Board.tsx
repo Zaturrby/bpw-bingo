@@ -21,19 +21,19 @@ export function Board({
   const { t } = useTranslation();
 
   const getButtonClasses = (square: BingoSquare, index: number) => {
-    const gridCols = printMode ? 5 : (isMobile ? 3 : 5);
+    const gridCols = printMode ? 5 : isMobile ? 3 : 5;
     const isFirstRow = index < gridCols;
     const isFirstCol = index % gridCols === 0;
-    
+
     const baseClasses = printMode
       ? "relative border-black p-2 aspect-square print:border-black"
       : "relative border-black p-1.5 transition-all duration-200 aspect-square";
-    
+
     // Build border classes based on position
     let borderClasses = "border-r-4 border-b-4";
     if (isFirstRow) borderClasses += " border-t-4";
     if (isFirstCol) borderClasses += " border-l-4";
-    
+
     const colorClasses = colorless
       ? "bg-white"
       : categoryColors[square.category];
@@ -70,9 +70,7 @@ export function Board({
   return (
     <div
       className={
-        printMode
-          ? "grid grid-cols-5"
-          : "grid grid-cols-3 md:grid-cols-5"
+        printMode ? "grid grid-cols-5" : "grid grid-cols-3 md:grid-cols-5"
       }
     >
       {gridSquares.map((square, index) => {
@@ -85,14 +83,7 @@ export function Board({
             disabled={printMode ? undefined : square.category === "free"}
           >
             <div className={getTextClasses(square)}>
-              {square.category === "free" ? (
-                <>
-                  <div>FREE</div>
-                  <div>SPACE</div>
-                </>
-              ) : (
-                t(square.translationKey)
-              )}
+              {square.category === "free" ? <></> : t(square.translationKey)}
             </div>
 
             {checkedSquares.has(square.id) && (

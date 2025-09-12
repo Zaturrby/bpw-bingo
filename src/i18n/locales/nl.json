@@ -4,10 +4,8 @@
     "subtitle": "Vul in en kom er achter. Win misschien een troostprijs, maar zeker ook onze sympathie en steun!",
     "instruction": "Streep aan wat voor jou geldt ↓",
     "explanation": "We hebben deze bingo gemaakt om mensen te helpen begrijpen wat precair wonen betekent en te herkennen of zij of anderen het ervaren.",
-    "joinText": "BINGO! Je woont precair. Net als heel veel anderen. Dit maakt ons ook boos! Word lid van de Bond Precaire Woonvormen",
-    "joinTextZeroScore": "Je woont niet precair, maar heel veel anderen wel. Word toch lid!",
-    "joinTextArrowMobile": "↓",
-    "joinTextArrowDesktop": "↓",
+    "joinText": "BINGO! Je woont precair. Net als heel veel anderen. Dit maakt ons ook boos! Word lid van de Bond Precaire Woonvormen ↓",
+    "joinTextZeroScore": "Je woont niet precair, maar heel veel anderen wel. Word toch lid! ↓",
     "total": "Totaal",
     "logoAlt": "BPW Amsterdam Logo - Click to visit website",
     "joinImageAlt": "Word Lid van BPW - Click to join",
@@ -29,54 +27,49 @@
       "zekerheid": "Zekerheid",
       "betaalbaarheid": "Betaalbaarheid",
       "tijdelijkheid": "Tijdelijkheid",
-      "beschikbaarheid": "Beschikbaarheid",
-      "free": "GRATIS VAKJE"
+      "beschikbaarheid": "Beschikbaarheid"
     },
     "questions": {
-    "zekerheid": {
-      "1": "Ik heb een tijdelijk huurcontract (alweer)",
-      "2": "Ik woon al erg lang onzeker",
-      "3": "Ik vrees elk moment mijn woonplek te kunnen verliezen",
-      "4": "Ik moet over binnenkort verhuizen maar kan niets anders vinden",
-      "5": "Er is geen stabiele woonsituatie hier",
-      "6": "Ik voel me niet thuis in mijn woning"
-    },
-    "betaalbaarheid": {
-      "7": "Ik heb schuld(en) door o.a. te duur te moeten wonen",
-      "8": "Ik woon te veel te duur",
-      "9": "Ik kan de huur soms niet betalen",
-      "10": "Ik kan geen huurtoeslag aanvragen",
-      "11": "Mijn huisbaas is onbereikbaar of doet niks",
-      "12": "Ik woon in een slecht onderhouden (rot)woning/kamer"
-    },
-    "tijdelijkheid": {
-      "13": "Ik woon antikraak",
-      "14": "Mijn leven bestaat uit studeren, werken en constant verhuizen",
-      "15": "Ik kraak een woning",
-      "16": "Ik woon uit nood bij vrienden/familie",
-      "17": "Mijn woonsituatie heeft (flink) invloed op mijn leven",
-      "18": "Ik ben de enige in deze situatie"
-    },
-    "beschikbaarheid": {
-      "19": "Ik haat die oneindige woningwachtlijsten",
-      "20": "Ik geloof niet in deze woningmarkt",
-      "21": "Ik sta al jaren ingeschreven voor sociale huur",
-      "22": "Ik heb meer dan 100 reacties geplaatst zonder succes",
-      "23": "Ik moet steeds mijn eisen naar beneden bijstellen",
-      "24": "Ik zoek al maanden/jaren naar een betaalbare woning"
-    }
+      "zekerheid": {
+        "1": "Ik heb een tijdelijk huurcontract (alweer)",
+        "2": "Ik woon al erg lang onzeker",
+        "3": "Ik vrees elk moment mijn woonplek te kunnen verliezen",
+        "4": "Ik moet over binnenkort verhuizen maar kan niets anders vinden",
+        "5": "Er is geen stabiele woonsituatie hier",
+        "6": "Ik voel me niet thuis in mijn woning"
+      },
+      "betaalbaarheid": {
+        "7": "Ik heb schuld(en) door o.a. te duur te moeten wonen",
+        "8": "Ik woon te veel te duur",
+        "9": "Ik kan de huur soms niet betalen",
+        "10": "Ik kan geen huurtoeslag aanvragen",
+        "11": "Mijn huisbaas is onbereikbaar of doet niks",
+        "12": "Ik woon in een slecht onderhouden (rot)woning/kamer"
+      },
+      "tijdelijkheid": {
+        "13": "Ik woon antikraak",
+        "14": "Mijn leven bestaat uit studeren, werken en constant verhuizen",
+        "15": "Ik kraak een woning",
+        "16": "Ik woon uit nood bij vrienden/familie",
+        "17": "Mijn woonsituatie heeft (flink) invloed op mijn leven",
+        "18": "Ik ben de enige in deze situatie"
+      },
+      "beschikbaarheid": {
+        "19": "Ik haat die oneindige woningwachtlijsten",
+        "20": "Ik geloof niet in deze woningmarkt",
+        "21": "Ik sta al jaren ingeschreven voor sociale huur",
+        "22": "Ik heb meer dan 100 reacties geplaatst zonder succes",
+        "23": "Ik moet steeds mijn eisen naar beneden bijstellen",
+        "24": "Ik zoek al maanden/jaren naar een betaalbare woning"
+      }
     }
   },
   "contact": {
     "title": "Deel je verhaal",
-    "yourScore": "Jouw Score",
-    "highestCategory": "Jouw grootste zorg",
-    "noCategories": "Nog geen gebieden geselecteerd",
     "myConcerns": "Mijn zorgen zijn:",
     "nameLabel": "Naam",
     "namePlaceholder": "Je volledige naam",
     "emailLabel": "E-mailadres",
-    "emailPlaceholder": "jouw.email@voorbeeld.nl",
     "situationLabel": "Vertel ons over je woonsituatie",
     "situationPlaceholder": "Beschrijf je huidige woonsituatie, uitdagingen waarmee je te maken hebt, of hoe we kunnen helpen...",
     "submitButton": "Stuur Email naar BPW Amsterdam",
@@ -84,7 +77,6 @@
     "emailSubject": "Woonsituatie Delen - Bingo Resultaten",
     "emailGreeting": "Hallo Bond Precaire Woonvormen Amsterdam,",
     "emailIntro": "Ik heb de BPW Amsterdam Precair Wonen Bingo ingevuld en wil graag mijn resultaten met jullie delen.",
-    "scoreLabel": "Mijn Bingo Score",
     "notProvided": "Niet opgegeven",
     "bingoResults": "BINGO RESULTATEN",
     "totalScore": "Totaalscore",

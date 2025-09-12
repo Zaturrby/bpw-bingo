@@ -34,12 +34,6 @@ export default function App() {
             {gameState.checkedSquares.size > 1
               ? t("app.joinText")
               : t("app.joinTextZeroScore")}{" "}
-            <span className="inline md:hidden">
-              {t("app.joinTextArrowMobile")}
-            </span>
-            <span className="hidden md:inline">
-              {t("app.joinTextArrowDesktop")}
-            </span>
           </p>
         </div>
 
