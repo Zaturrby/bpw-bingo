@@ -31,7 +31,7 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 bg-purple-200 border-2 border-black"></div>
               <span className="text-purple-800">
-                {t("categories.zekerheid")}
+                {t("game.categories.zekerheid")}
               </span>
             </div>
             <span className="text-purple-800">
@@ -42,7 +42,7 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 bg-violet-200 border-2 border-black"></div>
               <span className="text-violet-800">
-                {t("categories.betaalbaarheid")}
+                {t("game.categories.betaalbaarheid")}
               </span>
             </div>
             <span className="text-violet-800">
@@ -54,7 +54,7 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 bg-fuchsia-200 border-2 border-black"></div>
               <span className="text-fuchsia-800">
-                {t("categories.tijdelijkheid")}
+                {t("game.categories.tijdelijkheid")}
               </span>
             </div>
             <span className="text-fuchsia-800">
@@ -66,7 +66,7 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
             <div className="flex items-center gap-1">
               <div className="w-3 h-3 bg-pink-200 border-2 border-black"></div>
               <span className="text-pink-800">
-                {t("categories.beschikbaarheid")}
+                {t("game.categories.beschikbaarheid")}
               </span>
             </div>
             <span className="text-pink-800">

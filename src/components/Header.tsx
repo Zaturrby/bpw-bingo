@@ -12,7 +12,7 @@ export function Header() {
           href="https://bondprecairewoonvormen.nl/"
           target="_blank"
           rel="noopener noreferrer"
-          className="block hover:opacity-80 transition-opacity w-36 md:w-full md:min-w-0"
+          className="block hover:opacity-80 transition-opacity md:w-full md:min-w-0"
         >
           <img
             src={bpwLogo}

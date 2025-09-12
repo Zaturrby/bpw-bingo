@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import { Board } from "./Board";
 import { ScoreCounter } from "./ScoreCounter";
 import { BingoSquare, bingoSquares } from "./bingoData";
@@ -9,21 +8,20 @@ interface GameProps {
 }
 
 export function Game({ onGameStateChange }: GameProps) {
-  const { t } = useTranslation();
-  const [isMobile, setIsMobile] = useState<boolean>(() => 
-    typeof window !== 'undefined' && window.innerWidth < 768
+  const [isMobile, setIsMobile] = useState<boolean>(
+    () => typeof window !== "undefined" && window.innerWidth < 768
   );
-  
+
   // Initialize checkedSquares from localStorage or default
   const [checkedSquares, setCheckedSquares] = useState<Set<number>>(() => {
-    if (typeof window === 'undefined') return new Set();
-    
+    if (typeof window === "undefined") return new Set();
+
     try {
-      const saved = localStorage.getItem('bpw-bingo-checked-squares');
+      const saved = localStorage.getItem("bpw-bingo-checked-squares");
       if (saved) {
         const savedArray = JSON.parse(saved) as number[];
         const savedSet = new Set(savedArray);
-        
+
         // For mobile, remove free square (25) if it exists
         if (window.innerWidth < 768 && savedSet.has(25)) {
           savedSet.delete(25);
@@ -32,13 +30,13 @@ export function Game({ onGameStateChange }: GameProps) {
         else if (window.innerWidth >= 768 && !savedSet.has(25)) {
           savedSet.add(25);
         }
-        
+
         return savedSet;
       }
     } catch (error) {
-      console.warn('Failed to load saved bingo state:', error);
+      console.warn("Failed to load saved bingo state:", error);
     }
-    
+
     // Default state
     const initialMobile = window.innerWidth < 768;
     return new Set(initialMobile ? [] : [25]);
@@ -53,14 +51,17 @@ export function Game({ onGameStateChange }: GameProps) {
     } else {
       newChecked.add(id);
     }
-    
+
     // Save to localStorage
     try {
-      localStorage.setItem('bpw-bingo-checked-squares', JSON.stringify(Array.from(newChecked)));
+      localStorage.setItem(
+        "bpw-bingo-checked-squares",
+        JSON.stringify(Array.from(newChecked))
+      );
     } catch (error) {
-      console.warn('Failed to save bingo state:', error);
+      console.warn("Failed to save bingo state:", error);
     }
-    
+
     setCheckedSquares(newChecked);
     onGameStateChange?.(newChecked, isMobile);
   };
@@ -70,7 +71,7 @@ export function Game({ onGameStateChange }: GameProps) {
       (square) => square.category !== "free"
     );
     const shuffled = [...nonFreeSquares].sort(() => Math.random() - 0.5);
-    
+
     if (mobile) {
       // Mobile: return 24 squares (no free square)
       return shuffled.slice(0, 24);
@@ -92,7 +93,9 @@ export function Game({ onGameStateChange }: GameProps) {
     }
   };
 
-  const [gridSquares, setGridSquares] = useState<BingoSquare[]>(() => arrangeSquares(isMobile));
+  const [gridSquares, setGridSquares] = useState<BingoSquare[]>(() =>
+    arrangeSquares(isMobile)
+  );
 
   useEffect(() => {
     const handleResize = () => {
@@ -100,30 +103,33 @@ export function Game({ onGameStateChange }: GameProps) {
       if (newIsMobile !== isMobile) {
         setIsMobile(newIsMobile);
         setGridSquares(arrangeSquares(newIsMobile));
-        
+
         // Update checked squares: remove free square if switching to mobile, add it if switching to desktop
-        setCheckedSquares(prev => {
+        setCheckedSquares((prev) => {
           const newChecked = new Set(prev);
           if (newIsMobile && newChecked.has(25)) {
             newChecked.delete(25);
           } else if (!newIsMobile && !newChecked.has(25)) {
             newChecked.add(25);
           }
-          
+
           // Save to localStorage
           try {
-            localStorage.setItem('bpw-bingo-checked-squares', JSON.stringify(Array.from(newChecked)));
+            localStorage.setItem(
+              "bpw-bingo-checked-squares",
+              JSON.stringify(Array.from(newChecked))
+            );
           } catch (error) {
-            console.warn('Failed to save bingo state:', error);
+            console.warn("Failed to save bingo state:", error);
           }
-          
+
           return newChecked;
         });
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [isMobile]);
 
   // Notify parent of initial state and any changes
@@ -135,31 +141,14 @@ export function Game({ onGameStateChange }: GameProps) {
 
   return (
     <div className="w-full max-w-lg mx-auto md:max-w-4xl">
-      <div className="flex flex-col p-1 md:p-2">
+      <div className="flex flex-col">
         <Board
           gridSquares={gridSquares}
           checkedSquares={checkedSquares}
           onToggleSquare={toggleSquare}
         />
-        
-        <ScoreCounter
-          checkedSquares={checkedSquares}
-          isMobile={isMobile}
-        />
-        
-        <div className="text-center mt-6">
-          <p className="text-black font-bold text-base md:text-lg">
-            {checkedSquares.size > 1
-              ? t("app.joinText")
-              : t("app.joinTextZeroScore")}{" "}
-            <span className="inline md:hidden">
-              {t("app.joinTextArrowMobile")}
-            </span>
-            <span className="hidden md:inline">
-              {t("app.joinTextArrowDesktop")}
-            </span>
-          </p>
-        </div>
+
+        <ScoreCounter checkedSquares={checkedSquares} isMobile={isMobile} />
       </div>
     </div>
   );

@@ -10,7 +10,8 @@
     "joinTextArrowDesktop": "↓",
     "total": "Total",
     "logoAlt": "BPW Amsterdam Logo - Click to visit website",
-    "joinImageAlt": "Become a Member of BPW - Click to join"
+    "joinImageAlt": "Become a Member of BPW - Click to join",
+    "joinTextBetween": "Don't want to become a member straight away? Just send us your story ↓"
   },
   "organiseBlock": {
     "intro": "The Bond Precaire Woonvormen (BPW) is a tenants union that fights for the right to housing for people in temporary, insecure, or overly expensive housing.",
@@ -22,18 +23,15 @@
     "joinText": "Become a member of BPW",
     "joinLink": "https://bondprecairewoonvormen.nl/lidworden/"
   },
-  "categories": {
-    "zekerheid": "Security",
-    "betaalbaarheid": "Affordability",
-    "tijdelijkheid": "Temporality",
-    "beschikbaarheid": "Availability",
-    "free": "FREE SPACE"
-  },
-  "freeSquare": {
-    "line1": "FREE",
-    "line2": "SPACE"
-  },
-  "questions": {
+  "game": {
+    "categories": {
+      "zekerheid": "Security",
+      "betaalbaarheid": "Affordability",
+      "tijdelijkheid": "Temporality",
+      "beschikbaarheid": "Availability",
+      "free": "FREE SPACE"
+    },
+    "questions": {
     "zekerheid": {
       "1": "I have a temporary housing contract (again)",
       "2": "I live in temporary places for a long time already",
@@ -65,6 +63,7 @@
       "22": "I've placed more than 100 applications without success",
       "23": "I constantly have to lower my requirements",
       "24": "I've been searching for affordable housing for months/years"
+    }
     }
   },
   "contact": {

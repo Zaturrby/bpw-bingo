@@ -73,7 +73,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
     ];
     
     const categoryScoreText = categoryScores
-      .map(cat => `- ${t(`categories.${cat.key}`)}: ${cat.score}/6`)
+      .map(cat => `- ${t(`game.categories.${cat.key}`)}: ${cat.score}/6`)
       .join('\n');
     
     const body = encodeURIComponent(
@@ -85,7 +85,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
         `${t("contact.totalScore")}: ${totalScore}/24\n\n` +
         `${t("contact.categoryBreakdown")}:\n${categoryScoreText}\n\n` +
         (highestCategoryData.score > 0 ? 
-          `${t("contact.highestConcern")}: ${t(`categories.${highestCategoryData.category}`)} (${highestCategoryData.score}/6)\n\n` : 
+          `${t("contact.highestConcern")}: ${t(`game.categories.${highestCategoryData.category}`)} (${highestCategoryData.score}/6)\n\n` : 
           '') +
         (situation.trim() ? 
           `${t("contact.personalStory")}:\n${situation}\n\n` : 
@@ -160,7 +160,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
                         )}
                       </div>
                       <span className={`text-sm ${colorless ? 'text-black' : 'text-purple-800'} ${isHighest ? 'font-bold' : 'font-medium'}`}>
-                        {t(`categories.${category}`)}
+                        {t(`game.categories.${category}`)}
                       </span>
                     </div>
                   );

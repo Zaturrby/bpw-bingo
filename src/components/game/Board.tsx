@@ -75,8 +75,8 @@ export function Board({
             <div className={getTextClasses(square)}>
               {square.category === "free" ? (
                 <>
-                  <div>{t("freeSquare.line1")}</div>
-                  <div>{t("freeSquare.line2")}</div>
+                  <div>FREE</div>
+                  <div>SPACE</div>
                 </>
               ) : (
                 t(square.translationKey)

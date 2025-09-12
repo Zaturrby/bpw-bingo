@@ -10,7 +10,8 @@
     "joinTextArrowDesktop": "↓",
     "total": "Totaal",
     "logoAlt": "BPW Amsterdam Logo - Click to visit website",
-    "joinImageAlt": "Word Lid van BPW - Click to join"
+    "joinImageAlt": "Word Lid van BPW - Click to join",
+    "joinTextBetween": "Wil je nog niet direct lid worden? Stuur ons gewoon je verhaal ↓"
   },
   "organiseBlock": {
     "intro": "De Bond Precaire Woonvormen (BPW) strijdt voor het recht op wonen van mensen die tijdelijk, onzeker of te duur wonen.",
@@ -22,18 +23,15 @@
     "joinText": "Word lid van de BPW",
     "joinLink": "https://bondprecairewoonvormen.nl/lidworden/"
   },
-  "categories": {
-    "zekerheid": "Zekerheid",
-    "betaalbaarheid": "Betaalbaarheid",
-    "tijdelijkheid": "Tijdelijkheid",
-    "beschikbaarheid": "Beschikbaarheid",
-    "free": "GRATIS VAKJE"
-  },
-  "freeSquare": {
-    "line1": "GRATIS",
-    "line2": "VAKJE"
-  },
-  "questions": {
+  "game": {
+    "categories": {
+      "zekerheid": "Zekerheid",
+      "betaalbaarheid": "Betaalbaarheid",
+      "tijdelijkheid": "Tijdelijkheid",
+      "beschikbaarheid": "Beschikbaarheid",
+      "free": "GRATIS VAKJE"
+    },
+    "questions": {
     "zekerheid": {
       "1": "Ik heb een tijdelijk huurcontract (alweer)",
       "2": "Ik woon al erg lang onzeker",
@@ -65,6 +63,7 @@
       "22": "Ik heb meer dan 100 reacties geplaatst zonder succes",
       "23": "Ik moet steeds mijn eisen naar beneden bijstellen",
       "24": "Ik zoek al maanden/jaren naar een betaalbare woning"
+    }
     }
   },
   "contact": {

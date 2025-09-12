@@ -5,22 +5,20 @@ export function OrganiseBlock() {
   const { t } = useTranslation();
 
   return (
-    <div className="mt-20 mb-20 bg-purple-50 border-4 border-black p-4 md:p-6">
+    <div className="mt-16 mb-16 bg-purple-50 border-4 border-black p-4 md:p-6">
       <div className="max-w-lg md:max-w-2xl mx-auto">
         <h2 className="text-lg md:text-xl font-black text-purple-900 mb-4">
           {t("organiseBlock.title")}
         </h2>
 
-        <p className="text-gray-700 text-sm md:text-base mb-4 font-medium">
+        <p className="text-gray-700 text-sm md:text-base mb-4">
           {t("organiseBlock.intro")}
         </p>
-        <div className="space-y-3 text-sm md:text-base text-gray-800">
-          <p className="leading-relaxed">{t("organiseBlock.paragraph1")}</p>
-        </div>
+        <p className="text-gray-700 text-sm md:text-base mb-4">{t("organiseBlock.paragraph1")}</p>
 
         <div className="mt-6 flex flex-col md:flex-row gap-6 items-start">
           <div className="flex-1 space-y-3">
-            <p className="leading-relaxed">{t("organiseBlock.paragraph2")}</p>
+            <p className="text-gray-700 text-sm md:text-base">{t("organiseBlock.paragraph2")}</p>
             <p className="text-sm md:text-base text-purple-900 font-bold">
               <a
                 href={t("organiseBlock.learnMoreLink")}
