@@ -5,6 +5,7 @@ import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { Header } from "./components/Header";
 import { OrganiseBlock } from "./components/OrganiseBlock";
 import { ContactForm } from "./components/ContactForm";
+import { ConfettiBurst } from "./components/ConfettiBurst";
 
 export default function App() {
   const { t } = useTranslation();
@@ -16,11 +17,19 @@ export default function App() {
     isMobile: false,
   });
 
+  const [showConfetti, setShowConfetti] = useState(false);
+
   const handleGameStateChange = useCallback(
     (checkedSquares: Set<number>, isMobile: boolean) => {
+      const prevCount = gameState.checkedSquares.size;
       setGameState({ checkedSquares, isMobile });
+
+      // Trigger confetti when transitioning from 23 to 24 checked boxes
+      if (prevCount === 24 && checkedSquares.size === 25) {
+        setShowConfetti(true);
+      }
     },
-    []
+    [gameState.checkedSquares.size]
   );
 
   return (
@@ -57,6 +66,10 @@ export default function App() {
         </div>
       </div>
       <LanguageSwitcher />
+      <ConfettiBurst
+        trigger={showConfetti}
+        onComplete={() => setShowConfetti(false)}
+      />
     </div>
   );
 }
