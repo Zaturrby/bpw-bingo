@@ -1,49 +1,12 @@
-import { useEffect, useState } from 'react';
-
-interface ConfettiPiece {
-  id: number;
-  x: number;
-  y: number;
-  vx: number;
-  vy: number;
-  rotation: number;
-  rotationSpeed: number;
-  color: string;
-  size: number;
-  gravity: number;
-  fadeStart: number;
-  opacity: number;
-  trail: { x: number; y: number; opacity: number }[];
-}
-
-interface FireworkBurst {
-  id: number;
-  x: number;
-  y: number;
-  startTime: number;
-  particles: ConfettiPiece[];
-}
+import { useEffect, useRef, useState } from 'react';
 
 interface ConfettiBurstProps {
   trigger: boolean;
   onComplete?: () => void;
 }
 
-const CONFETTI_COLORS = [
-  '#9333ea', // purple-600 (main brand)
-  '#7c3aed', // violet-600
-  '#c026d3', // fuchsia-600
-  '#ec4899', // pink-500
-  '#f97316', // orange-500
-  '#eab308', // yellow-500
-  '#22c55e', // green-500
-  '#3b82f6', // blue-500
-  '#ef4444', // red-500
-  '#f59e0b', // amber-500
-];
-
 export function ConfettiBurst({ trigger, onComplete }: ConfettiBurstProps) {
-  const [fireworks, setFireworks] = useState<FireworkBurst[]>([]);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
@@ -52,156 +15,149 @@ export function ConfettiBurst({ trigger, onComplete }: ConfettiBurstProps) {
     }
   }, [trigger, isActive]);
 
-  const createFireworkBurst = (x: number, y: number, burstId: number, startTime: number): FireworkBurst => {
-    const particles: ConfettiPiece[] = [];
-    const particleCount = 25; // Particles per firework
-    
-    for (let i = 0; i < particleCount; i++) {
-      const angle = (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.5;
-      const speed = Math.random() * 8 + 6; // Speed between 6-14
-      
-      particles.push({
-        id: i,
-        x,
-        y,
-        vx: Math.cos(angle) * speed,
-        vy: Math.sin(angle) * speed,
-        rotation: Math.random() * 360,
-        rotationSpeed: (Math.random() - 0.5) * 10,
-        color: CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)],
-        size: Math.random() * 6 + 3, // Size between 3-9px
-        gravity: 0.15,
-        fadeStart: startTime + 3000, // Start fading after 3 seconds
-        opacity: 1,
-        trail: [],
-      });
-    }
-    
-    return {
-      id: burstId,
-      x,
-      y,
-      startTime,
-      particles,
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const resizeCanvas = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
-  };
+
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    return () => window.removeEventListener('resize', resizeCanvas);
+  }, []);
 
   const startFireworks = () => {
     setIsActive(true);
-    
-    const bursts: FireworkBurst[] = [];
-    const startTime = Date.now();
-    
-    // Create multiple firework bursts at different times and positions
-    const burstCount = 6;
-    for (let i = 0; i < burstCount; i++) {
-      const delay = i * 400; // 400ms between each burst
-      const x = Math.random() * window.innerWidth * 0.6 + window.innerWidth * 0.2; // Center area
-      const y = Math.random() * window.innerHeight * 0.4 + window.innerHeight * 0.1; // Upper area
-      
+
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const colors = ['#9333ea', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#ef4444', '#ec4899', '#c026d3'];
+    let particles: Array<{
+      x: number, y: number, vx: number, vy: number, color: string, 
+      life: number, size: number, trail: Array<{x: number, y: number, opacity: number}>
+    }> = [];
+
+    // Create multiple firework bursts
+    const createBurst = (centerX: number, centerY: number, delay: number, burstSize: number = 50) => {
       setTimeout(() => {
-        setFireworks(prev => [...prev, createFireworkBurst(x, y, i, Date.now())]);
+        for (let i = 0; i < burstSize; i++) {
+          const angle = (Math.PI * 2 * i) / burstSize + (Math.random() - 0.5) * 0.3;
+          const speed = Math.random() * 10 + 6; // Increased speed range
+          particles.push({
+            x: centerX,
+            y: centerY,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed - Math.random() * 2, // Some upward bias
+            color: colors[Math.floor(Math.random() * colors.length)],
+            life: 0,
+            size: Math.random() * 4 + 2, // Variable particle size
+            trail: []
+          });
+        }
       }, delay);
-    }
-
-    // Animate all fireworks
-    const animationDuration = 7000; // 7 seconds total
-    
-    const animate = () => {
-      const currentTime = Date.now();
-      const elapsed = currentTime - startTime;
-      
-      if (elapsed >= animationDuration) {
-        setFireworks([]);
-        setIsActive(false);
-        onComplete?.();
-        return;
-      }
-
-      setFireworks(prevFireworks => 
-        prevFireworks.map(firework => ({
-          ...firework,
-          particles: firework.particles.map(particle => {
-            // Update trail
-            const newTrail = [...particle.trail, { x: particle.x, y: particle.y, opacity: particle.opacity * 0.7 }];
-            if (newTrail.length > 8) newTrail.shift(); // Keep only last 8 trail points
-
-            // Calculate fade
-            const particleAge = currentTime - firework.startTime;
-            let opacity = 1;
-            if (particleAge > 2000) { // Start fading after 2 seconds
-              opacity = Math.max(0, 1 - (particleAge - 2000) / 3000);
-            }
-
-            return {
-              ...particle,
-              x: particle.x + particle.vx,
-              y: particle.y + particle.vy,
-              vx: particle.vx * 0.98, // Air resistance
-              vy: particle.vy + particle.gravity,
-              rotation: particle.rotation + particle.rotationSpeed,
-              opacity,
-              trail: newTrail,
-            };
-          }).filter(particle => 
-            particle.opacity > 0.01 &&
-            particle.y < window.innerHeight + 100 && 
-            particle.x > -100 && particle.x < window.innerWidth + 100
-          )
-        })).filter(firework => firework.particles.length > 0)
-      );
-
-      requestAnimationFrame(animate);
     };
 
-    requestAnimationFrame(animate);
+    // Create 8 bursts with varying sizes and timing - 2x particles!
+    createBurst(canvas.width * 0.2, canvas.height * 0.25, 0, 120);
+    createBurst(canvas.width * 0.8, canvas.height * 0.2, 400, 160);
+    createBurst(canvas.width * 0.5, canvas.height * 0.3, 800, 200);
+    createBurst(canvas.width * 0.1, canvas.height * 0.4, 1200, 140);
+    createBurst(canvas.width * 0.9, canvas.height * 0.35, 1600, 180);
+    createBurst(canvas.width * 0.3, canvas.height * 0.15, 2000, 160);
+    createBurst(canvas.width * 0.7, canvas.height * 0.25, 2400, 200);
+    createBurst(canvas.width * 0.5, canvas.height * 0.1, 2800, 240); // Epic grand finale
+
+    const animate = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      
+      particles = particles.filter(particle => {
+        // Update trail
+        particle.trail.push({ x: particle.x, y: particle.y, opacity: 1 - particle.life / 240 });
+        if (particle.trail.length > 8) particle.trail.shift();
+
+        // Physics
+        particle.x += particle.vx;
+        particle.y += particle.vy;
+        particle.vy += 0.15; // gravity
+        particle.vx *= 0.995; // air resistance
+        particle.life++;
+
+        if (particle.life < 240) { // 4 seconds at 60fps
+          // Draw trail
+          particle.trail.forEach((point, index) => {
+            const trailOpacity = point.opacity * (index / particle.trail.length) * 0.4;
+            if (trailOpacity > 0.01) {
+              ctx.save();
+              ctx.globalAlpha = trailOpacity;
+              ctx.fillStyle = particle.color;
+              ctx.beginPath();
+              const trailSize = particle.size * 0.3 * (index / particle.trail.length);
+              ctx.arc(point.x, point.y, trailSize, 0, Math.PI * 2);
+              ctx.fill();
+              ctx.restore();
+            }
+          });
+
+          // Draw main particle with glow
+          const opacity = Math.max(0, 1 - particle.life / 240);
+          ctx.save();
+          ctx.globalAlpha = opacity;
+          
+          // Glow effect
+          ctx.shadowBlur = particle.size * 3;
+          ctx.shadowColor = particle.color;
+          ctx.fillStyle = particle.color;
+          
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Inner bright core
+          ctx.shadowBlur = 0;
+          ctx.globalAlpha = opacity * 0.8;
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(particle.x, particle.y, particle.size * 0.3, 0, Math.PI * 2);
+          ctx.fill();
+          
+          ctx.restore();
+          return true;
+        }
+        return false;
+      });
+
+      if (particles.length > 0) {
+        requestAnimationFrame(animate);
+      } else {
+        setIsActive(false);
+        onComplete?.();
+      }
+    };
+
+    // Start animation immediately and also after first burst
+    animate();
+    setTimeout(() => animate(), 100);
   };
 
-  if (!isActive || fireworks.length === 0) {
-    return null;
-  }
-
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
-      {fireworks.map(firework =>
-        firework.particles.map(particle => (
-          <div key={`${firework.id}-${particle.id}`}>
-            {/* Render particle trail */}
-            {particle.trail.map((trailPoint, trailIndex) => (
-              <div
-                key={`trail-${firework.id}-${particle.id}-${trailIndex}`}
-                className="absolute"
-                style={{
-                  left: `${trailPoint.x}px`,
-                  top: `${trailPoint.y}px`,
-                  width: `${particle.size * 0.5}px`,
-                  height: `${particle.size * 0.5}px`,
-                  backgroundColor: particle.color,
-                  opacity: trailPoint.opacity * 0.6,
-                  borderRadius: '50%',
-                  transform: `scale(${0.3 + (trailIndex / particle.trail.length) * 0.7})`,
-                }}
-              />
-            ))}
-            
-            {/* Render main particle */}
-            <div
-              className="absolute"
-              style={{
-                left: `${particle.x}px`,
-                top: `${particle.y}px`,
-                width: `${particle.size}px`,
-                height: `${particle.size}px`,
-                backgroundColor: particle.color,
-                opacity: particle.opacity,
-                transform: `rotate(${particle.rotation}deg)`,
-                borderRadius: Math.random() > 0.6 ? '50%' : '0%',
-                boxShadow: `0 0 ${particle.size}px ${particle.color}40`,
-              }}
-            />
-          </div>
-        ))
-      )}
-    </div>
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 pointer-events-none"
+      style={{ 
+        background: 'transparent',
+        zIndex: 9999,
+        top: 0,
+        left: 0,
+        width: '100vw',
+        height: '100vh'
+      }}
+    />
   );
 }

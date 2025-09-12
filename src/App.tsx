@@ -21,15 +21,30 @@ export default function App() {
 
   const handleGameStateChange = useCallback(
     (checkedSquares: Set<number>, isMobile: boolean) => {
-      const prevCount = gameState.checkedSquares.size;
+      // Calculate actual score (excluding free square on desktop)
+      const getActualScore = (squares: Set<number>, mobile: boolean) => {
+        return mobile
+          ? squares.size
+          : squares.has(25)
+          ? squares.size - 1
+          : squares.size;
+      };
+
+      const prevScore = getActualScore(
+        gameState.checkedSquares,
+        gameState.isMobile
+      );
+      const currentScore = getActualScore(checkedSquares, isMobile);
+
       setGameState({ checkedSquares, isMobile });
 
-      // Trigger confetti when transitioning from 23 to 24 checked boxes
-      if (prevCount === 24 && checkedSquares.size === 25) {
+      // Trigger confetti when completing all 24 boxes
+      if (prevScore === 23 && currentScore === 24) {
+        console.log('🎆 BINGO! All 24 squares completed - triggering fireworks!');
         setShowConfetti(true);
       }
     },
-    [gameState.checkedSquares.size]
+    [gameState.checkedSquares, gameState.isMobile]
   );
 
   return (
@@ -66,6 +81,7 @@ export default function App() {
         </div>
       </div>
       <LanguageSwitcher />
+
       <ConfettiBurst
         trigger={showConfetti}
         onComplete={() => setShowConfetti(false)}
