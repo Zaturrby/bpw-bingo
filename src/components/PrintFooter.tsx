@@ -7,10 +7,7 @@ export function PrintFooter() {
   const currentLang = lang || "nl";
 
   // QR code URLs using a QR code service
-  const joinBpwUrl =
-    currentLang === "en"
-      ? "https://bondprecairewoonvormen.nl/en/lidworden/"
-      : "https://bondprecairewoonvormen.nl/lidworden/";
+  const joinBpwUrl = t("organiseBlock.joinLink");
 
   const playOnlineUrl = `https://bpw-bingo.netlify.app/${currentLang}`;
 

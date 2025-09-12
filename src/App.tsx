@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Game } from "./components/Game";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { Header } from "./components/Header";
-import { Footer } from "./components/Footer";
+import { OrganiseBlock } from "./components/OrganiseBlock";
 import { ContactForm } from "./components/ContactForm";
 
 export default function App() {
@@ -23,7 +23,7 @@ export default function App() {
       <div className="w-full max-w-lg md:max-w-2xl mx-auto">
         <Header />
         <Game onGameStateChange={handleGameStateChange} />
-        <Footer />
+        <OrganiseBlock />
         <ContactForm
           checkedSquares={gameState.checkedSquares}
           isMobile={gameState.isMobile}
