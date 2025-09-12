@@ -38,7 +38,20 @@ export function ConfettiBurst({ trigger, onComplete }: ConfettiBurstProps) {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const colors = ['#9333ea', '#f97316', '#eab308', '#22c55e', '#3b82f6', '#ef4444', '#ec4899', '#c026d3'];
+    const colors = [
+      '#9333ea', // purple-600 (main brand)
+      '#7c3aed', // violet-600
+      '#8b5cf6', // violet-500
+      '#a855f7', // purple-500
+      '#c084fc', // purple-400
+      '#d8b4fe', // purple-300
+      '#e9d5ff', // purple-200
+      '#c026d3', // fuchsia-600
+      '#d946ef', // fuchsia-500
+      '#e879f9', // fuchsia-400
+      '#f0abfc', // fuchsia-300
+      '#ec4899', // pink-500
+    ];
     let particles: Array<{
       x: number, y: number, vx: number, vy: number, color: string, 
       life: number, size: number, trail: Array<{x: number, y: number, opacity: number}>
@@ -90,22 +103,20 @@ export function ConfettiBurst({ trigger, onComplete }: ConfettiBurstProps) {
         particle.life++;
 
         if (particle.life < 240) { // 4 seconds at 60fps
-          // Draw trail
+          // Draw trail as squares
           particle.trail.forEach((point, index) => {
             const trailOpacity = point.opacity * (index / particle.trail.length) * 0.4;
             if (trailOpacity > 0.01) {
               ctx.save();
               ctx.globalAlpha = trailOpacity;
               ctx.fillStyle = particle.color;
-              ctx.beginPath();
               const trailSize = particle.size * 0.3 * (index / particle.trail.length);
-              ctx.arc(point.x, point.y, trailSize, 0, Math.PI * 2);
-              ctx.fill();
+              ctx.fillRect(point.x - trailSize/2, point.y - trailSize/2, trailSize, trailSize);
               ctx.restore();
             }
           });
 
-          // Draw main particle with glow
+          // Draw main particle as square with glow
           const opacity = Math.max(0, 1 - particle.life / 240);
           ctx.save();
           ctx.globalAlpha = opacity;
@@ -115,17 +126,15 @@ export function ConfettiBurst({ trigger, onComplete }: ConfettiBurstProps) {
           ctx.shadowColor = particle.color;
           ctx.fillStyle = particle.color;
           
-          ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-          ctx.fill();
+          // Main square particle
+          ctx.fillRect(particle.x - particle.size/2, particle.y - particle.size/2, particle.size, particle.size);
           
-          // Inner bright core
+          // Inner bright core as smaller square
           ctx.shadowBlur = 0;
           ctx.globalAlpha = opacity * 0.8;
           ctx.fillStyle = '#ffffff';
-          ctx.beginPath();
-          ctx.arc(particle.x, particle.y, particle.size * 0.3, 0, Math.PI * 2);
-          ctx.fill();
+          const coreSize = particle.size * 0.3;
+          ctx.fillRect(particle.x - coreSize/2, particle.y - coreSize/2, coreSize, coreSize);
           
           ctx.restore();
           return true;
