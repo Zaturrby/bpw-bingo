@@ -55,6 +55,12 @@ export default function App() {
           checkedSquares={gameState.checkedSquares}
           isMobile={gameState.isMobile}
         />
+
+        <div className="text-center mt-16 mb-16">
+          <p className="text-black font-bold text-base md:text-lg">
+            {t("app.gratitudeMessage")}
+          </p>
+        </div>
       </div>
       <LanguageSwitcher />
     </div>

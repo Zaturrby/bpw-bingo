@@ -11,7 +11,8 @@
     "total": "Total",
     "logoAlt": "BPW Amsterdam Logo - Click to visit website",
     "joinImageAlt": "Become a Member of BPW - Click to join",
-    "joinTextBetween": "Don't want to become a member straight away? Just send us your story ↓"
+    "joinTextBetween": "Don't want to become a member straight away? Just send us your story ↓",
+    "gratitudeMessage": "Thanks for visiting our bingo!"
   },
   "organiseBlock": {
     "intro": "The Bond Precaire Woonvormen (BPW) is a tenants union that fights for the right to housing for people in temporary, insecure, or overly expensive housing.",

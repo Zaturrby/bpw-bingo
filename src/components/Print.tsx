@@ -47,7 +47,7 @@ export function Print({ colorless = false }: PrintProps) {
 
   return (
     <div className="min-h-screen bg-white p-4 relative print:m-0 print:p-4 print:min-h-0">
-      <div className="w-full max-w-lg md:max-w-2xl mx-auto">
+      <div className="w-full max-w-xl md:max-w-2xl mx-auto">
         <div className="flex justify-center">
           <div className="w-full max-w-2xl print:max-w-none">
             {/* Header */}
