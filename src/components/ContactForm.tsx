@@ -15,11 +15,6 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
   const [email, setEmail] = useState("");
   const [situation, setSituation] = useState("");
 
-  const isValidEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  };
-
   const totalScore = isMobile
     ? checkedSquares.size
     : checkedSquares.has(25)
@@ -123,22 +118,24 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
             />
           </div>
 
-          <div>
-            <label
-              htmlFor="email"
-              className={`block text-sm font-bold ${colorless ? 'text-black' : 'text-purple-900'} mb-2`}
-            >
-              {t("contact.emailLabel")}
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full p-3 border-2 border-black bg-white text-black font-medium"
-              placeholder={printMode ? "" : t("contact.emailPlaceholder")}
-            />
-          </div>
+          {printMode && (
+            <div>
+              <label
+                htmlFor="email"
+                className={`block text-sm font-bold ${colorless ? 'text-black' : 'text-purple-900'} mb-2`}
+              >
+                {t("contact.emailLabel")}
+              </label>
+              <input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full p-3 border-2 border-black bg-white text-black font-medium"
+                placeholder=""
+              />
+            </div>
+          )}
 
           {(checkedSquares.size > 0 || printMode) && (
             <div>
@@ -204,8 +201,7 @@ export function ContactForm({ checkedSquares, isMobile, printMode = false, color
           {!printMode && (
             <button
               onClick={handleSubmit}
-              disabled={!isValidEmail(email)}
-              className="w-full bg-purple-400 hover:bg-purple-500 disabled:bg-gray-300 disabled:cursor-not-allowed border-4 border-black p-3 font-black text-black uppercase tracking-wide transition-colors"
+              className="w-full bg-purple-400 hover:bg-purple-500 border-4 border-black p-3 font-black text-black uppercase tracking-wide transition-colors"
             >
               {t("contact.submitButton")}
             </button>

@@ -23,9 +23,7 @@ export function Board({
   const getButtonClasses = (square: BingoSquare, index: number) => {
     const gridCols = printMode ? 5 : (isMobile ? 3 : 5);
     const isFirstRow = index < gridCols;
-    const isLastRow = index >= gridSquares.length - gridCols;
     const isFirstCol = index % gridCols === 0;
-    const isLastCol = index % gridCols === gridCols - 1;
     
     const baseClasses = printMode
       ? "relative border-black p-2 aspect-square print:border-black"

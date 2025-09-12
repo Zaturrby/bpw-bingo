@@ -4,7 +4,6 @@ import bpwLogo from "../images/bpw-amsterdam-logo.jpg";
 import { Board } from "./game/Board";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ColorSwitcher } from "./ColorSwitcher";
-import { PrintFooter } from "./PrintFooter";
 
 interface PrintProps {
   colorless?: boolean;
