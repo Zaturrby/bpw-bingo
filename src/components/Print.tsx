@@ -79,8 +79,6 @@ export function Print({ colorless = false }: PrintProps) {
               printMode={true}
               colorless={colorless}
             />
-            
-            <PrintFooter />
           </div>
         </div>
       </div>
