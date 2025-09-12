@@ -16,7 +16,7 @@ export function OrganiseBlock() {
         </p>
         <p className="text-gray-700 text-sm md:text-base mb-4">{t("organiseBlock.paragraph1")}</p>
 
-        <div className="mt-6 flex flex-col md:flex-row gap-6 items-start">
+        <div className="mt-4 flex flex-col md:flex-row gap-6 items-start">
           <div className="flex-1 space-y-3">
             <p className="text-gray-700 text-sm md:text-base">{t("organiseBlock.paragraph2")}</p>
             <p className="text-sm md:text-base text-purple-900 font-bold">
