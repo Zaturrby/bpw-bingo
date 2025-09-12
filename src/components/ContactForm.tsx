@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { bingoSquares } from "../data/bingoData";
+import { bingoSquares } from "./game/bingoData";
 
 interface ContactFormProps {
   checkedSquares: Set<number>;

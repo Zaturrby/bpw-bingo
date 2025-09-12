@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { bingoSquares } from "../data/bingoData";
+import { bingoSquares } from "./bingoData";
 
 interface ScoreCounterProps {
   checkedSquares: Set<number>;
@@ -86,20 +86,6 @@ export function ScoreCounter({ checkedSquares, isMobile }: ScoreCounterProps) {
             / 24
           </p>
         </div>
-      </div>
-
-      <div className="text-center mt-6">
-        <p className="text-black font-bold text-base md:text-lg">
-          {checkedSquares.size > 1
-            ? t("app.joinText")
-            : t("app.joinTextZeroScore")}{" "}
-          <span className="inline md:hidden">
-            {t("app.joinTextArrowMobile")}
-          </span>
-          <span className="hidden md:inline">
-            {t("app.joinTextArrowDesktop")}
-          </span>
-        </p>
       </div>
     </div>
   );

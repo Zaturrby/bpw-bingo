@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { Game } from "./components/Game";
+import { Game } from "./components/game/Game";
 import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { Header } from "./components/Header";
 import { OrganiseBlock } from "./components/OrganiseBlock";

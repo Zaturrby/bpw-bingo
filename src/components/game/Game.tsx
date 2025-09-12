@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { Board } from "./Board";
 import { ScoreCounter } from "./ScoreCounter";
-import { BingoSquare, bingoSquares } from "../data/bingoData";
+import { BingoSquare, bingoSquares } from "./bingoData";
 
 interface GameProps {
   onGameStateChange?: (checkedSquares: Set<number>, isMobile: boolean) => void;
 }
 
 export function Game({ onGameStateChange }: GameProps) {
+  const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState<boolean>(() => 
     typeof window !== 'undefined' && window.innerWidth < 768
   );
@@ -144,6 +146,20 @@ export function Game({ onGameStateChange }: GameProps) {
           checkedSquares={checkedSquares}
           isMobile={isMobile}
         />
+        
+        <div className="text-center mt-6">
+          <p className="text-black font-bold text-base md:text-lg">
+            {checkedSquares.size > 1
+              ? t("app.joinText")
+              : t("app.joinTextZeroScore")}{" "}
+            <span className="inline md:hidden">
+              {t("app.joinTextArrowMobile")}
+            </span>
+            <span className="hidden md:inline">
+              {t("app.joinTextArrowDesktop")}
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );

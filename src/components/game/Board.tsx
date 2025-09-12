@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { BingoSquare, categoryColors } from "../data/bingoData";
+import { BingoSquare, categoryColors } from "./bingoData";
 
 interface BoardProps {
   gridSquares: BingoSquare[];
