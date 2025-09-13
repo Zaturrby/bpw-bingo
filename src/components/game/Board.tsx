@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { BingoSquare, categoryColors } from "./bingoData";
-import { CrackOverlay } from "./cracks";
+import { CrackOverlay } from "../animations/cracks";
 
 interface BoardProps {
   gridSquares: BingoSquare[];

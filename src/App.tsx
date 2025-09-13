@@ -5,7 +5,7 @@ import { LanguageSwitcher } from "./components/LanguageSwitcher";
 import { Header } from "./components/Header";
 import { OrganiseBlock } from "./components/OrganiseBlock";
 import { ContactForm } from "./components/ContactForm";
-import { ConfettiBurst } from "./components/ConfettiBurst";
+import { GlassShards } from "./components/animations/glassShards";
 import { AnimatedFooter } from "./components/animations/activistMarch";
 
 export default function App() {
@@ -86,7 +86,7 @@ export default function App() {
         </div>
         <LanguageSwitcher />
 
-        <ConfettiBurst
+        <GlassShards
           trigger={showConfetti}
           onComplete={() => setShowConfetti(false)}
         />
