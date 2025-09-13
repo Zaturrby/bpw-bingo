@@ -1,78 +1,60 @@
-import { generateFullCrack } from './generator';
-import { CrackStorage, Crack } from './types';
+import { generateFullCrack } from "./generator";
+import { CrackStorage, Crack } from "./types";
 import {
   getFinaleStartTime,
   getFinaleComplete,
   setFinaleStartTime,
-  setFinaleComplete
-} from './storage';
+  setFinaleComplete,
+} from "./storage";
+import {
+  shouldTriggerFinale as shouldTriggerFinaleFromTiming,
+  calculateAnimationProgress,
+  getCrackTimingPhase,
+  DEFAULT_CRACK_TIMING_CONFIG,
+} from "./timing";
 
+// Legacy interface for backward compatibility
 export interface FinaleConfig {
-  triggerThreshold: number; // Number of squares needed to trigger finale
-  animationDuration: number; // Duration in milliseconds
-  extraCracks: number; // Number of extra cracks to generate
-  logProgress: boolean; // Whether to log animation progress
+  triggerThreshold: number;
+  animationDuration: number;
+  extraCracks: number;
+  logProgress: boolean;
 }
 
+// Legacy config - now uses timing module internally
 export const DEFAULT_FINALE_CONFIG: FinaleConfig = {
-  triggerThreshold: 25,
-  animationDuration: 4000, // 4 seconds for dramatic effect
-  extraCracks: 50, // Halved the amount
-  logProgress: false // Only show trigger log
+  triggerThreshold: DEFAULT_CRACK_TIMING_CONFIG.triggerThreshold,
+  animationDuration: DEFAULT_CRACK_TIMING_CONFIG.totalDuration,
+  extraCracks: 50,
+  logProgress: false,
 };
 
-export const shouldTriggerFinale = (selectedCount: number, config: FinaleConfig = DEFAULT_FINALE_CONFIG): boolean => {
-  return selectedCount >= config.triggerThreshold && !getFinaleComplete();
+export const shouldTriggerFinale = (
+  selectedCount: number,
+  _config: FinaleConfig = DEFAULT_FINALE_CONFIG
+): boolean => {
+  return shouldTriggerFinaleFromTiming(selectedCount, getFinaleComplete());
 };
-
-// Global to track if we've logged the trigger (only once across all squares)
-let hasLoggedTrigger = false;
 
 export const initializeFinale = (): void => {
   if (!getFinaleStartTime()) {
-    if (!hasLoggedTrigger) {
-      console.log(`🎯 FINALE TRIGGERED! Starting suspenseful crack cascade...`);
-      hasLoggedTrigger = true;
-    }
-    setFinaleStartTime(Date.now());
+    const startTime = Date.now();
+    setFinaleStartTime(startTime);
   }
 };
 
-// Suspenseful crack timing: slow start, then quick succession, then explosive finale
-const getSuspensefulCrackCount = (progress: number, totalCracks: number): number => {
-  if (progress <= 0.2) {
-    // First 20%: 1 crack (0.8 seconds)
-    return 1;
-  } else if (progress <= 0.4) {
-    // Next 20%: add 1 more crack (1.6 seconds total)
-    return 2;
-  } else if (progress <= 0.7) {
-    // Next 30%: add a few quickly (2.8 seconds total)
-    const quickCracks = Math.floor((progress - 0.4) / 0.3 * 8); // 8 cracks in this phase
-    return 2 + quickCracks;
-  } else {
-    // Final 30%: explosive finale - all remaining cracks
-    return totalCracks;
-  }
-};
+// Timing logic moved to timing.ts module
 
-export const calculateFinaleProgress = (config: FinaleConfig = DEFAULT_FINALE_CONFIG): {
+export const calculateFinaleProgress = (
+  _config: FinaleConfig = DEFAULT_FINALE_CONFIG
+): {
   elapsed: number;
   animationProgress: number;
   extraCracks: number;
   isComplete: boolean;
 } => {
   const startTime = getFinaleStartTime();
-  if (!startTime) {
-    return { elapsed: 0, animationProgress: 0, extraCracks: 0, isComplete: false };
-  }
-
-  const elapsed = Date.now() - startTime;
-  const animationProgress = Math.min(elapsed / config.animationDuration, 1);
-  const extraCracks = getSuspensefulCrackCount(animationProgress, config.extraCracks);
-  const isComplete = animationProgress >= 1;
-
-  return { elapsed, animationProgress, extraCracks, isComplete };
+  return calculateAnimationProgress(startTime || null);
 };
 
 export const logFinaleProgress = (
@@ -86,15 +68,16 @@ export const logFinaleProgress = (
   // Log every 10% progress to see the animation working
   const progressPercent = Math.floor(progress.animationProgress * 10) * 10;
   if (progressPercent !== squareCracks.lastLoggedProgress) {
+    const phaseInfo = getCrackTimingPhase(progress.animationProgress);
     console.log(
-      `🔥 Animation progress: ${progressPercent}%, Extra cracks: ${progress.extraCracks}/${config.extraCracks}, Elapsed: ${progress.elapsed}ms`
+      `🔥 Animation progress: ${progressPercent}%, Phase: ${phaseInfo.phase}, Extra cracks: ${progress.extraCracks}/${config.extraCracks}, Elapsed: ${progress.elapsed}ms`
     );
     squareCracks.lastLoggedProgress = progressPercent;
   }
 };
 
 export const generateFinaleCracks = (
-  canvas: HTMLCanvasElement,
+  _canvas: HTMLCanvasElement,
   selectedCount: number,
   squareId: number,
   currentCracks: number,
@@ -102,27 +85,43 @@ export const generateFinaleCracks = (
 ): Crack[] => {
   const newCracksCount = targetCracks - currentCracks;
   if (squareId === 1 && newCracksCount > 0) {
-    console.log(`Adding ${newCracksCount} new cracks. Total will be: ${targetCracks}`);
+    const currentTime = Date.now();
+    const startTime = getFinaleStartTime();
+    const elapsed = startTime ? currentTime - startTime : 0;
+    const logMessage = `Adding ${newCracksCount} new cracks. Total: ${targetCracks}`;
+
+    // Phase-based logging with elapsed time
+    if (newCracksCount >= 40) {
+      console.log(`💥 FINALE BURST (${elapsed}ms): ${logMessage}`);
+    } else if (elapsed <= 1000) {
+      console.log(`🌱 SLOW START (${elapsed}ms): ${logMessage}`);
+    } else if (elapsed <= 2000) {
+      console.log(`⚡ BUILD UP (${elapsed}ms): ${logMessage}`);
+    } else {
+      console.log(`🚀 QUICK SUCCESSION (${elapsed}ms): ${logMessage}`);
+    }
   }
 
   // Generate the new cracks
   const newCracks = [];
   for (let i = currentCracks; i < targetCracks; i++) {
-    const newCrack = generateFullCrack(canvas, i, selectedCount, squareId);
+    const newCrack = generateFullCrack(_canvas, i, selectedCount, squareId);
     newCracks.push(newCrack);
   }
 
   return newCracks;
 };
 
-export const updateFinaleProgress = (progress: ReturnType<typeof calculateFinaleProgress>): void => {
-  if (progress.isComplete) {
+export const updateFinaleProgress = (
+  progress: ReturnType<typeof calculateFinaleProgress>
+): void => {
+  if (progress.isComplete && !getFinaleComplete()) {
     setFinaleComplete(true);
   }
 };
 
 export const processFinale = (
-  canvas: HTMLCanvasElement,
+  _canvas: HTMLCanvasElement,
   selectedCount: number,
   squareId: number,
   squareCracks: CrackStorage,

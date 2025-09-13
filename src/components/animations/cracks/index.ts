@@ -13,6 +13,16 @@ export { detectAndHandlePageReload } from './utils';
 // Finale system
 export * from './finale';
 
+// Timing system
+export {
+  getSuspensefulCrackCount,
+  getCrackTimingPhase,
+  shouldTriggerFinale as shouldTriggerFinaleFromTiming,
+  calculateAnimationProgress,
+  DEFAULT_CRACK_TIMING_CONFIG
+} from './timing';
+export type { CrackTimingConfig } from './timing';
+
 // Storage
 export {
   getSquareCracks,

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { GlassShardsProps, GlassShard } from './types';
 import { createGridExplosion, DEFAULT_SHARD_CONFIG } from './generator';
-import { updateAllShards } from './physics';
+import { updateAllShards, resetExplosionLogging } from './physics';
 import { renderAllShards } from './renderer';
 
 export function GlassShards({ trigger, onComplete, boardRect }: GlassShardsProps) {
@@ -31,6 +31,7 @@ export function GlassShards({ trigger, onComplete, boardRect }: GlassShardsProps
 
   const startGlassExplosion = () => {
     setIsActive(true);
+    resetExplosionLogging();
 
     const canvas = canvasRef.current;
     if (!canvas) return;

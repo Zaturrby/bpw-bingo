@@ -1,14 +1,25 @@
 import { GlassShard, ShardConfig } from './types';
 import { DEFAULT_SHARD_CONFIG } from './generator';
 
+
+
 export const updateShardPhysics = (
   shard: GlassShard,
   config: ShardConfig = DEFAULT_SHARD_CONFIG
 ): boolean => {
-  // Handle delayed start (negative life means waiting to start)
+  // Handle delayed start using time-based approach
   if (shard.life < 0) {
-    shard.life++;
-    return true; // Keep shard but don't update physics yet
+    const targetTime = (shard as any).targetExplosionTime;
+    const currentTime = Date.now();
+
+    if (targetTime && currentTime >= targetTime) {
+      // Time to start the explosion!
+      shard.life = 0;
+
+    } else {
+      // Still waiting
+      return true;
+    }
   }
 
   // Update trail only when shard is active
@@ -59,3 +70,9 @@ export const updateAllShards = (
 ): GlassShard[] => {
   return shards.filter(shard => updateShardPhysics(shard, config));
 };
+
+// Reset explosion logging for new animations (no-op now)
+export const resetExplosionLogging = (): void => {
+  // No longer needed but kept for compatibility
+};
+

@@ -17,10 +17,6 @@ export const updateCracks = (
 
   // Only add new cracks if we need more
   if (targetCracks > currentCracks) {
-    const newCracksCount = targetCracks - currentCracks;
-    if (selectedCount >= 25 && squareId === 1) {
-      console.log(`Adding ${newCracksCount} new cracks. Total will be: ${targetCracks}`);
-    }
     for (let i = currentCracks; i < targetCracks; i++) {
       const newCrack = generateFullCrack(canvas, i, selectedCount, squareId);
       squareCracks.cracks.push(newCrack);

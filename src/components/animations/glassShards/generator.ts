@@ -1,4 +1,5 @@
-import { GlassShard, ShardConfig } from './types';
+import { GlassShard, ShardConfig } from "./types";
+import { MASTER_ANIMATION_TIMING, getTimingMilestones } from "../shared/timing";
 
 export const DEFAULT_SHARD_CONFIG: ShardConfig = {
   count: 45, // Per explosion origin - much more shards
@@ -8,35 +9,35 @@ export const DEFAULT_SHARD_CONFIG: ShardConfig = {
   maxSpeed: 45,
   gravity: 0.25,
   airResistance: 0.985,
-  maxLife: 300, // 5 seconds at 60fps - longer lasting
-  trailLength: 10
+  maxLife: 180, // 3 seconds at 60fps - reduced for better timing
+  trailLength: 10,
 };
 
-// Special config for finale explosion - MASSIVE shard burst
+// Special config for finale explosion - reduced shard count but aligned timing
 export const FINALE_SHARD_CONFIG: ShardConfig = {
-  count: 120, // MASSIVE explosion for finale squares
+  count: 60, // Reduced from 120 for better balance
   minSize: 8,
   maxSize: 28,
   minSpeed: 20,
   maxSpeed: 65,
   gravity: 0.2, // Slightly less gravity for more dramatic arcs
   airResistance: 0.98,
-  maxLife: 400, // Even longer lasting for finale
-  trailLength: 15
+  maxLife: 72, // ~1.2 seconds at 60fps - much shorter to align with crack finale
+  trailLength: 8,
 };
 
 const GLASS_COLORS = [
-  '#ffffff', // Pure white
-  '#f8fafc', // Very light gray
-  '#e2e8f0', // Light gray
-  '#cbd5e1', // Medium gray
-  '#94a3b8', // Darker gray
-  '#64748b', // Steel gray
+  "#ffffff", // Pure white
+  "#f8fafc", // Very light gray
+  "#e2e8f0", // Light gray
+  "#cbd5e1", // Medium gray
+  "#94a3b8", // Darker gray
+  "#64748b", // Steel gray
   // Add some colored glass variants
-  '#e9d5ff', // Light purple (from bingo colors)
-  '#ddd6fe', // Light violet
-  '#f5d0fe', // Light fuchsia
-  '#fbcfe8', // Light pink
+  "#e9d5ff", // Light purple (from bingo colors)
+  "#ddd6fe", // Light violet
+  "#f5d0fe", // Light fuchsia
+  "#fbcfe8", // Light pink
 ];
 
 export const generateGlassShards = (
@@ -48,8 +49,10 @@ export const generateGlassShards = (
 
   for (let i = 0; i < config.count; i++) {
     // Create radial explosion pattern
-    const angle = (Math.PI * 2 * i) / config.count + (Math.random() - 0.5) * 0.5;
-    const speed = config.minSpeed + Math.random() * (config.maxSpeed - config.minSpeed);
+    const angle =
+      (Math.PI * 2 * i) / config.count + (Math.random() - 0.5) * 0.5;
+    const speed =
+      config.minSpeed + Math.random() * (config.maxSpeed - config.minSpeed);
 
     // Add some vertical bias to make it more explosive upward
     const verticalBias = -Math.random() * 3;
@@ -62,12 +65,13 @@ export const generateGlassShards = (
       rotation: Math.random() * Math.PI * 2,
       rotationSpeed: (Math.random() - 0.5) * 0.4, // More rotation for chaos
       width: config.minSize + Math.random() * (config.maxSize - config.minSize),
-      height: config.minSize + Math.random() * (config.maxSize - config.minSize),
+      height:
+        config.minSize + Math.random() * (config.maxSize - config.minSize),
       color: GLASS_COLORS[Math.floor(Math.random() * GLASS_COLORS.length)],
       opacity: 0.85 + Math.random() * 0.15, // Higher base opacity for more visibility
       life: 0,
       maxLife: config.maxLife + Math.random() * 60, // Some variation in lifespan
-      trail: []
+      trail: [],
     };
 
     // Make most shards very angular and sharp (glass-like)
@@ -103,33 +107,41 @@ export const createShardBurst = (
   return generateGlassShards(originX, originY, config);
 };
 
-// Dramatic timing pattern matching the crack finale exactly (4 second duration)
-const getDramaticTiming = (squareIndex: number, totalSquares: number): number => {
-  const TOTAL_DURATION = 4000; // Match crack system duration
-  const progress = squareIndex / totalSquares;
+/**
+ * Get explosion timing for a specific square using shared timing system
+ */
+const getSharedExplosionTiming = (
+  squareIndex: number,
+  totalSquares: number
+): number => {
+  const milestones = getTimingMilestones(MASTER_ANIMATION_TIMING);
 
-  if (progress <= 0.2) {
-    // First 20%: First square explodes (slow start)
-    return squareIndex < 1 ? 0 : TOTAL_DURATION * 0.2; // 800ms
-  } else if (progress <= 0.4) {
-    // Next 20%: Second square explodes
-    return squareIndex < 2 ? (squareIndex * TOTAL_DURATION * 0.2) : TOTAL_DURATION * 0.4; // 1600ms
-  } else if (progress <= 0.7) {
-    // Next 30%: Quick succession (8 squares)
-    const quickPhaseIndex = squareIndex - 2;
-    const quickDelay = TOTAL_DURATION * 0.4 + (quickPhaseIndex * 150); // 1600ms + 150ms intervals
-    return Math.min(quickDelay, TOTAL_DURATION * 0.7); // Cap at 2800ms
-  } else {
-    // Final 30%: All finale squares explode simultaneously at 4000ms (finale completion)
-    return TOTAL_DURATION; // 4000ms - massive finale explosion when cracks complete
+
+  // First square - immediate
+  if (squareIndex === 0) {
+    return 0;
   }
+
+  // Second square - at end of slow start phase
+  if (squareIndex === 1) {
+    return milestones.slowStartEnd; // 800ms
+  }
+
+  // Quick succession squares (up to 70% of total)
+  const quickSuccessionCount = Math.floor(totalSquares * 0.7) - 2; // Subtract first 2 squares
+  if (squareIndex < Math.floor(totalSquares * 0.7)) {
+    const quickIndex = squareIndex - 2;
+    const quickDuration = milestones.quickSuccessionEnd - milestones.buildUpEnd; // 2800 - 1600 = 1200ms
+    const spacing = quickDuration / quickSuccessionCount;
+    return milestones.buildUpEnd + (quickIndex * spacing); // 1600ms + spacing
+  }
+
+  // Finale squares - end at finale phase to align with crack completion
+  return milestones.finaleEnd; // 4000ms
 };
 
-// Check if this square is part of the finale explosion
-const isFinaleSquare = (squareIndex: number, totalSquares: number): boolean => {
-  const progress = squareIndex / totalSquares;
-  return progress > 0.7; // Final 30% get the massive explosion
-};
+
+// Using shared timing system aligned with cracks
 
 export const createGridExplosion = (
   boardRect: DOMRect,
@@ -144,58 +156,53 @@ export const createGridExplosion = (
   const squareWidth = boardRect.width / gridSize.cols;
   const squareHeight = boardRect.height / gridSize.rows;
 
-  let squareIndex = 0;
-
-  // Create explosion from each grid square with dramatic timing
+  // Create array of all grid positions and randomize them
+  const gridPositions: Array<{ row: number; col: number; position: { x: number; y: number } }> = [];
   for (let row = 0; row < gridSize.rows; row++) {
     for (let col = 0; col < gridSize.cols; col++) {
-      // Calculate center of this grid square
       const squareX = boardRect.left + (col + 0.5) * squareWidth;
       const squareY = boardRect.top + (row + 0.5) * squareHeight;
-
-      // Get dramatic timing delay for this square
-      const delay = getDramaticTiming(squareIndex, totalSquares);
-
-      // Generate shards for this square - create multiple explosion origins for finale
-      const isFinale = isFinaleSquare(squareIndex, totalSquares);
-      let squareShards: GlassShard[] = [];
-
-      if (isFinale) {
-        // Create diverse explosion origins spread across the entire board area
-        const explosionCount = 3; // Fewer explosions per finale square
-
-        for (let i = 0; i < explosionCount; i++) {
-          // Spread explosion points across the entire board, not just within square
-          const boardPadding = Math.min(boardRect.width, boardRect.height) * 0.05;
-          let explosionX, explosionY;
-
-          if (i === 0) {
-            // First explosion at square center
-            explosionX = squareX;
-            explosionY = squareY;
-          } else {
-            // Other explosions randomly across the board
-            explosionX = boardRect.left + boardPadding + Math.random() * (boardRect.width - 2 * boardPadding);
-            explosionY = boardRect.top + boardPadding + Math.random() * (boardRect.height - 2 * boardPadding);
-          }
-
-          const explosionShards = generateGlassShards(explosionX, explosionY, FINALE_SHARD_CONFIG);
-          squareShards.push(...explosionShards);
-        }
-      } else {
-        // Regular single explosion for non-finale squares
-        squareShards = generateGlassShards(squareX, squareY, config);
-      }
-
-      // Apply dramatic delay to shard life (negative life = delayed start)
-      squareShards.forEach(shard => {
-        shard.life = -Math.floor(delay / (1000/60)); // Convert ms to frames
-      });
-
-      allShards.push(...squareShards);
-      squareIndex++;
+      gridPositions.push({ row, col, position: { x: squareX, y: squareY } });
     }
   }
+
+  // Shuffle the grid positions randomly
+  for (let i = gridPositions.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [gridPositions[i], gridPositions[j]] = [gridPositions[j], gridPositions[i]];
+  }
+
+  // First 17 squares get individual timing (0ms, 800ms, 1600ms, etc.)
+  const regularSquares = gridPositions.slice(0, 17);
+  // Last 8 squares all explode together at finale (4000ms)
+  const finaleSquares = gridPositions.slice(17);
+
+  // Create regular explosions with staggered timing
+  regularSquares.forEach((gridPos, index) => {
+    const delay = getSharedExplosionTiming(index, totalSquares);
+    const squareShards = generateGlassShards(gridPos.position.x, gridPos.position.y, config);
+
+    squareShards.forEach((shard) => {
+      (shard as any).targetExplosionTime = Date.now() + delay;
+      shard.life = -1;
+    });
+
+    allShards.push(...squareShards);
+  });
+
+  // Create finale explosions - all 8 squares explode at 2800ms (when crack finale starts)
+  const milestones = getTimingMilestones(MASTER_ANIMATION_TIMING);
+  const finaleDelay = milestones.finaleStart; // 2800ms
+  finaleSquares.forEach((gridPos) => {
+    const squareShards = generateGlassShards(gridPos.position.x, gridPos.position.y, FINALE_SHARD_CONFIG);
+
+    squareShards.forEach((shard) => {
+      (shard as any).targetExplosionTime = Date.now() + finaleDelay;
+      shard.life = -1;
+    });
+
+    allShards.push(...squareShards);
+  });
 
   return allShards;
 };
