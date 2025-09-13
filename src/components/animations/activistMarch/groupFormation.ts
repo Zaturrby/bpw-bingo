@@ -20,30 +20,41 @@ export class GroupFormation {
   }
 
   private maintainGroupPosition(activist: Activist, activists: Activist[]): void {
-    // Find the front of the group (activist with smallest groupPosition who is marching)
+    // Find the group leader to maintain relative positions
     const marchingActivists = activists.filter((a) => a.hasJoined && a.handshakeStage === "marching");
 
-    if (marchingActivists.length > 0) {
-      const groupLeader = marchingActivists.reduce((leader, current) =>
-        current.groupPosition < leader.groupPosition ? current : leader
-      );
+    if (marchingActivists.length === 0) {
+      activist.speed = ANIMATION_CONFIG.GROUP_SPEED;
+      return;
+    }
 
-      const targetX = groupLeader.x - activist.groupPosition * ANIMATION_CONFIG.GROUP_SPACING;
-      const distanceToTarget = targetX - activist.x;
+    // Prefer housing activists as group leader, otherwise use lowest position
+    const housingLeaders = marchingActivists.filter(a =>
+      a.signText === "🏘️" || a.signText === "🔑" || a.signText === "🏚️" ||
+      a.signText === "🏡" || a.signText === "🏢" || a.signText === "🛡️"
+    );
 
-      // Gentler speed adjustment with better spacing maintenance
-      if (Math.abs(distanceToTarget) > ANIMATION_CONFIG.POSITION_TOLERANCE) {
-        // Only adjust if moderately out of position
-        if (distanceToTarget > 0) {
-          activist.speed = ANIMATION_CONFIG.CATCH_UP_SPEED; // Speed up slightly to catch up
-        } else {
-          activist.speed = ANIMATION_CONFIG.SLOW_DOWN_SPEED; // Slow down slightly to let others catch up
-        }
-      } else {
-        activist.speed = ANIMATION_CONFIG.GROUP_SPEED; // Group speed
-      }
+    const groupLeader = housingLeaders.length > 0
+      ? housingLeaders.reduce((leader, current) =>
+          current.groupPosition < leader.groupPosition ? current : leader
+        )
+      : marchingActivists.reduce((leader, current) =>
+          current.groupPosition < leader.groupPosition ? current : leader
+        );
+
+    // Calculate where this activist should be relative to leader
+    const targetX = groupLeader.x - activist.groupPosition * ANIMATION_CONFIG.GROUP_SPACING;
+    const distanceError = targetX - activist.x;
+
+    // Simple correction: only adjust speed if significantly out of position
+    if (Math.abs(distanceError) > ANIMATION_CONFIG.GROUP_SPACING * 0.3) {
+      // Gentle correction - max 0.05 speed adjustment
+      const correction = Math.sign(distanceError) * Math.min(Math.abs(distanceError) / ANIMATION_CONFIG.GROUP_SPACING, 0.05);
+      activist.speed = ANIMATION_CONFIG.GROUP_SPEED + correction;
     } else {
-      activist.speed = ANIMATION_CONFIG.GROUP_SPEED; // Default group speed
+      // In good position - maintain group speed with slight natural variation
+      const naturalVariation = Math.sin(Date.now() * 0.001 + activist.wobbleOffset) * 0.01;
+      activist.speed = ANIMATION_CONFIG.GROUP_SPEED + naturalVariation;
     }
   }
 
@@ -68,7 +79,7 @@ export class GroupFormation {
   }
 
   private resetActivistPosition(activist: Activist): void {
-    // If they've joined the group, keep them in formation when they loop back
+    // If they've joined the group, keep them in fixed formation when they loop back
     if (activist.hasJoined) {
       activist.x = ANIMATION_CONFIG.RESET_POSITION_OFFSET - activist.groupPosition * ANIMATION_CONFIG.GROUP_SPACING;
       activist.speed = ANIMATION_CONFIG.GROUP_SPEED;

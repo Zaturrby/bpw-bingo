@@ -90,19 +90,31 @@ export class HandshakeSystem {
     const partner = activists[activist.handshakePartner];
     const distance = Math.abs(activist.x - partner.x);
 
-    // Speed up to approach partner
-    if (activist.x < partner.x) {
-      activist.speed = Math.max(activist.speed, ANIMATION_CONFIG.APPROACH_FAST_SPEED);
+    // Calculate desired meeting point (halfway between current positions)
+    const meetingPoint = (activist.x + partner.x) / 2;
+
+    // Move toward meeting point with controlled speed
+    if (activist.x < meetingPoint) {
+      activist.speed = ANIMATION_CONFIG.APPROACH_FAST_SPEED;
+    } else if (activist.x > meetingPoint + 10) { // Small buffer to prevent oscillation
+      activist.speed = ANIMATION_CONFIG.APPROACH_SLOW_SPEED;
     } else {
-      activist.speed = Math.min(activist.speed, ANIMATION_CONFIG.APPROACH_SLOW_SPEED);
+      // Near meeting point, slow down to avoid collision
+      activist.speed = ANIMATION_CONFIG.GROUP_SPEED * 0.5;
     }
 
-    // Start handshaking when close
+    // Start handshaking when close and both have had time to approach
     if (distance < ANIMATION_CONFIG.HANDSHAKE_COMPLETION_DISTANCE &&
         activist.handshakeTimer > ANIMATION_CONFIG.HANDSHAKE_APPROACH_TIME) {
       console.log(
         `🤝 Activists ${activists.indexOf(activist)} and ${activist.handshakePartner} now handshaking (distance: ${distance})`
       );
+
+      // Position them properly for handshake (slight separation to prevent overlap)
+      const centerX = (activist.x + partner.x) / 2;
+      activist.x = centerX - 15; // 30px total separation
+      partner.x = centerX + 15;
+
       activist.handshakeStage = "handshaking";
       partner.handshakeStage = "handshaking";
       activist.speed = 0; // Stop during handshake

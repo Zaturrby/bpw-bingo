@@ -1,27 +1,27 @@
-import { Activist } from './types';
+import { Activist } from "./types";
 
 // Animation constants
 export const ANIMATION_CONFIG = {
-  CANVAS_HEIGHT: 120,
+  CANVAS_HEIGHT: 140, // Increased height for more bubble space
   GROUND_HEIGHT: 30,
   GROUND_COLOR: "#faf5ff", // purple-50 to match the OrganiseBlock background
 
   // Handshake settings
   HANDSHAKE_DETECTION_DISTANCE: 60,
-  HANDSHAKE_COMPLETION_DISTANCE: 25,
+  HANDSHAKE_COMPLETION_DISTANCE: 35, // Increased to prevent overlapping during approach
   HANDSHAKE_APPROACH_TIME: 30,
   HANDSHAKE_DURATION: 90,
   HANDSHAKE_CELEBRATION_TIME: 120,
-  HANDSHAKE_BUBBLE_START_Y: -80,
+  HANDSHAKE_BUBBLE_START_Y: -100, // Higher starting position
 
   // Movement settings
-  GROUP_SPACING: 60,
+  GROUP_SPACING: 10, // Much tighter spacing for synchronized marching
   GROUP_SPEED: 0.6,
-  POSITION_TOLERANCE: 30,
-  CATCH_UP_SPEED: 0.7,
-  SLOW_DOWN_SPEED: 0.5,
-  APPROACH_FAST_SPEED: 0.8,
-  APPROACH_SLOW_SPEED: 0.3,
+  POSITION_TOLERANCE: 8, // Very tight tolerance for precise formation
+  CATCH_UP_SPEED: 0.62, // Minimal speed adjustments
+  SLOW_DOWN_SPEED: 0.58,
+  APPROACH_FAST_SPEED: 0.75, // Reduced approach speeds to prevent overlapping
+  APPROACH_SLOW_SPEED: 0.35,
 
   // Visual settings
   SCREEN_VISIBILITY_THRESHOLD: 0.2, // 20% of screen width before handshakes start
@@ -29,13 +29,20 @@ export const ANIMATION_CONFIG = {
   RESET_RANDOM_RANGE: 200,
 
   // Bubble animation
-  BUBBLE_LIFE_DURATION: 150, // frames
-  BUBBLE_FLOAT_SPEED: 0.4,
+  BUBBLE_LIFE_DURATION: 180, // Longer duration for slower bubbles
+  BUBBLE_FLOAT_SPEED: 0.3, // Even slower float speed
   BUBBLE_TRIGGER_FRAME: 45,
 } as const;
 
 // Define the initial activist configuration
-export const INITIAL_ACTIVISTS: Omit<Activist, 'isJoining' | 'hasJoined' | 'handshakeStage' | 'handshakeTimer' | 'handshakePartner'>[] = [
+export const INITIAL_ACTIVISTS: Omit<
+  Activist,
+  | "isJoining"
+  | "hasJoined"
+  | "handshakeStage"
+  | "handshakeTimer"
+  | "handshakePartner"
+>[] = [
   // Solo activists - most will join, but one stays independent
   {
     x: -150,
