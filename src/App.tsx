@@ -6,6 +6,7 @@ import { Header } from "./components/Header";
 import { OrganiseBlock } from "./components/OrganiseBlock";
 import { ContactForm } from "./components/ContactForm";
 import { ConfettiBurst } from "./components/ConfettiBurst";
+import { AnimatedFooter } from "./components/animations/activistMarch";
 
 export default function App() {
   const { t } = useTranslation();
@@ -48,44 +49,48 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-white p-4 relative">
-      <div className="w-full max-w-lg md:max-w-2xl mx-auto">
-        <Header />
-        <Game onGameStateChange={handleGameStateChange} />
+    <>
+      <div className="min-h-screen bg-white p-4 relative">
+        <div className="w-full max-w-lg md:max-w-2xl mx-auto">
+          <Header />
+          <Game onGameStateChange={handleGameStateChange} />
 
-        <div className="text-center mt-16">
-          <p className="text-black font-bold text-base md:text-lg">
-            {gameState.checkedSquares.size > 1
-              ? t("app.joinText")
-              : t("app.joinTextZeroScore")}{" "}
-          </p>
+          <div className="text-center mt-16">
+            <p className="text-black font-bold text-base md:text-lg">
+              {gameState.checkedSquares.size > 1
+                ? t("app.joinText")
+                : t("app.joinTextZeroScore")}{" "}
+            </p>
+          </div>
+
+          <OrganiseBlock />
+
+          <div className="text-center mt-6 mb-16">
+            <p className="text-black font-bold text-base md:text-lg">
+              {t("app.joinTextBetween")}
+            </p>
+          </div>
+
+          <ContactForm
+            checkedSquares={gameState.checkedSquares}
+            isMobile={gameState.isMobile}
+          />
+
+          <div className="text-center mt-16 mb-16">
+            <p className="text-black font-bold text-base md:text-lg">
+              {t("app.gratitudeMessage")}
+            </p>
+          </div>
         </div>
+        <LanguageSwitcher />
 
-        <OrganiseBlock />
-
-        <div className="text-center mt-6 mb-16">
-          <p className="text-black font-bold text-base md:text-lg">
-            {t("app.joinTextBetween")}
-          </p>
-        </div>
-
-        <ContactForm
-          checkedSquares={gameState.checkedSquares}
-          isMobile={gameState.isMobile}
+        <ConfettiBurst
+          trigger={showConfetti}
+          onComplete={() => setShowConfetti(false)}
         />
-
-        <div className="text-center mt-16 mb-16">
-          <p className="text-black font-bold text-base md:text-lg">
-            {t("app.gratitudeMessage")}
-          </p>
-        </div>
       </div>
-      <LanguageSwitcher />
 
-      <ConfettiBurst
-        trigger={showConfetti}
-        onComplete={() => setShowConfetti(false)}
-      />
-    </div>
+      <AnimatedFooter />
+    </>
   );
 }

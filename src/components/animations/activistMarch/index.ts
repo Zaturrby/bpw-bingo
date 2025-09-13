@@ -1,0 +1,1 @@
+export { ActivistMarch as AnimatedFooter } from './ActivistMarch';
