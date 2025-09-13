@@ -107,14 +107,14 @@ export function ActivistMarch() {
   }, []);
 
   return (
-    <div className="w-full pointer-events-none relative overflow-hidden" style={{ height: "140px" }}>
+    <div className="w-full pointer-events-none relative overflow-hidden" style={{ height: "200px" }}>
       <canvas
         ref={canvasRef}
         className="w-full h-full"
         style={{
           background: "transparent",
           width: "100%",
-          height: "140px",
+          height: "200px",
         }}
       />
     </div>

@@ -41,7 +41,9 @@ export default function App() {
 
       // Trigger confetti when completing all 24 boxes
       if (prevScore === 23 && currentScore === 24) {
-        console.log('🎆 BINGO! All 24 squares completed - triggering fireworks!');
+        console.log(
+          "🎆 BINGO! All 24 squares completed - triggering fireworks!"
+        );
         setShowConfetti(true);
       }
     },
@@ -76,7 +78,7 @@ export default function App() {
             isMobile={gameState.isMobile}
           />
 
-          <div className="text-center mt-16 mb-16">
+          <div className="text-center mt-16">
             <p className="text-black font-bold text-base md:text-lg">
               {t("app.gratitudeMessage")}
             </p>

@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { BingoSquare, categoryColors } from "./bingoData";
+import { CrackOverlay } from "./CrackOverlay";
 
 interface BoardProps {
   gridSquares: BingoSquare[];
@@ -19,6 +20,21 @@ export function Board({
   isMobile = false,
 }: BoardProps) {
   const { t } = useTranslation();
+
+  // Convert Tailwind background classes to hex colors for canvas
+  const getSquareColor = (square: BingoSquare) => {
+    if (colorless) return "#ffffff";
+
+    const colorMap = {
+      "bg-purple-200": "#e9d5ff",
+      "bg-violet-200": "#ddd6fe",
+      "bg-fuchsia-200": "#f5d0fe",
+      "bg-pink-200": "#fbcfe8",
+      "bg-purple-300": "#d8b4fe"
+    };
+
+    return colorMap[categoryColors[square.category]] || "#e9d5ff";
+  };
 
   const getButtonClasses = (square: BingoSquare, index: number) => {
     const gridCols = printMode ? 5 : isMobile ? 3 : 5;
@@ -68,12 +84,13 @@ export function Board({
   };
 
   return (
-    <div
-      className={
-        printMode ? "grid grid-cols-5" : "grid grid-cols-3 md:grid-cols-5"
-      }
-    >
-      {gridSquares.map((square, index) => {
+    <div className="relative">
+      <div
+        className={
+          printMode ? "grid grid-cols-5" : "grid grid-cols-3 md:grid-cols-5"
+        }
+      >
+        {gridSquares.map((square, index) => {
         const Element = printMode ? "div" : "button";
         return (
           <Element
@@ -110,9 +127,20 @@ export function Board({
                 </div>
               </div>
             )}
+
+            {/* Crack overlay for all squares (finale shows on ALL boxes) */}
+            {!printMode && (
+              <CrackOverlay
+                globalProgress={checkedSquares.size / gridSquares.length}
+                squareColor={getSquareColor(square)}
+                isVisible={checkedSquares.has(square.id) || (checkedSquares.size >= 25)}
+                squareId={square.id}
+              />
+            )}
           </Element>
         );
-      })}
+        })}
+      </div>
     </div>
   );
 }

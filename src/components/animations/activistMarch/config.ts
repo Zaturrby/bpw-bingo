@@ -2,7 +2,7 @@ import { Activist } from "./types";
 
 // Animation constants
 export const ANIMATION_CONFIG = {
-  CANVAS_HEIGHT: 140, // Increased height for more bubble space
+  CANVAS_HEIGHT: 200, // Increased height for more bubble space
   GROUND_HEIGHT: 30,
   GROUND_COLOR: "#faf5ff", // purple-50 to match the OrganiseBlock background
 
