@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { BingoSquare, categoryColors } from "./bingoData";
-import { CrackOverlay } from "./CrackOverlay";
+import { CrackOverlay } from "./cracks";
 
 interface BoardProps {
   gridSquares: BingoSquare[];
@@ -117,13 +117,7 @@ export function Board({
                     colorless ? "bg-black" : "bg-primary"
                   }`}
                 >
-                  <div
-                    className={`w-5 h-5 ${
-                      colorless ? "text-white" : "text-primary-foreground"
-                    }`}
-                  >
-                    ✓
-                  </div>
+                  {/* Checkmark hidden - cracks provide visual feedback */}
                 </div>
               </div>
             )}
